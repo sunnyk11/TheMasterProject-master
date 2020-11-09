@@ -1,0 +1,80 @@
+﻿@model TheMasterProject.Models.DealerRegisterViewModel
+@{
+    ViewBag.Title = "DealerRegister";
+    Layout = "~/Views/Shared/_SBAdminLogin.cshtml";
+}
+
+@using (Html.BeginForm("DealerRegister", "Account", FormMethod.Post, new { @class = "user" }))
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="row" style="margin-top:30px">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header py-3">
+                    <h5 class="m-0 font-weight-bold text-primary">User Registration</h5>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                @Html.Label("Full Name", new { @class = "col-md-4 control-label", @style = "margin:auto" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.FirstName, "Name is Required", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            
+                            <div class="form-group row">
+                                @Html.LabelFor(m => m.MobileNo, new { @class = "col-md-4 control-label", @style = "margin:auto" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(m => m.MobileNo, "", new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.MobileNo, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            
+
+                        </div>
+                        <div class="col-md-6">
+                            
+                            <div class="form-group row">
+                                @Html.LabelFor(m => m.Email, new { @class = "col-md-4 control-label", @style = "margin:auto" })
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                @Html.LabelFor(m => m.Password, new { @class = "col-md-4 control-label", @style = "margin:auto" })
+                                <div class="col-md-8">
+                                    @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-4 control-label", @style = "margin:auto" })
+                                <div class="col-md-8">
+                                    @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+                                    @Html.ValidationMessageFor(m => m.ConfirmPassword, "", new { @class = "text-danger" })
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-8"></div>
+                                <div class="col-md-4" style="text-align:right">
+                                    <input type="submit" class="btn btn-primary" value="Register" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @*@Html.ValidationSummary("", new { @class = "text-danger" })*@
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+

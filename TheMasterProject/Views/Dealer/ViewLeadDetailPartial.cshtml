@@ -1,0 +1,99 @@
+﻿@model TheMasterProject.ViewModels.DealerToLeadRelation
+
+<div class="row">
+    <div class="col-md-12">
+        <table class="table table-striped table-bordered" style="width:100%" id="tblDealerbasicDetail">
+            <thead>
+                <tr>
+                    <th>
+                        Will Get Payout
+                    </th>
+                    <th>Current Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        @Model.WillGetPayout
+                    </td>
+                    <td>
+                        @Model.LeadStatus
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="col-md-12">
+        <table class="table table-striped table-bordered" style="width:100%">
+            <thead>
+                <tr>
+                    <th>
+                        Manager
+                    </th>
+                    <th>Assistant Manager</th>
+                    <th>Team Member</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>
+                        @if (Model.ManagerDetails != null)
+                        {
+                            @Model.ManagerDetails.FirstName
+                        }
+                        else
+                        {
+                            <label>--No Manager Assigned</label>
+                        }
+
+                    </td>
+                    <td>
+                        @if (Model.AssistantManagerDetails != null)
+                        {
+                            @Model.AssistantManagerDetails.FirstName
+                        }
+                        else
+                        {
+                            <label>--No Assistant Manager Assigned</label>
+                        }
+
+                    </td>
+                    <td>
+                        @if (Model.TeamMemberDetails != null)
+                        {
+                            @Model.TeamMemberDetails.FirstName
+                        }
+                        else
+                        {
+                            <label>--No Assistant Manager Assigned</label>
+                        }
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+<link href="~/SB-Admin/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+@section Scripts{
+    <script src="~/SB-Admin/vendor/jquery/jquery.min.js"></script>
+
+    <script src="~/SB-Admin/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/SB-Admin/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="~/SB-Admin/js/demo/datatables-demo.js"></script>
+    <script>
+
+        $(document).ready(function () {
+
+            $('#LeadDetails').DataTable({
+               
+            });
+            $('#tblDealerbasicDetail').DataTable({
+
+            });
+        });
+    </script>
+
+}

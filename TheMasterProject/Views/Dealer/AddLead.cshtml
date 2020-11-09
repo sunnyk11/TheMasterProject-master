@@ -1,0 +1,917 @@
+﻿@model TheMasterProject.Models.BuyerDetailViewModel
+
+@{
+
+    Layout = "~/Views/Shared/_SBAdminDealer.cshtml";
+}
+
+@using (Html.BeginForm("AddLead", "Dealer", FormMethod.Post, new { enctype = "multipart/form-data", @class = "user" }))
+{
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link active" id="nav-add-info" data-toggle="tab" href="#nav-add-infoDiv" role="tab" aria-controls="nav-home" aria-selected="true">Fill Details</a>
+            <a class="nav-item nav-link" id="nav-fileupload" data-toggle="tab" href="#nav-fileuploadDiv" role="tab" aria-controls="nav-profile" aria-selected="false">Upload File</a>
+            <a class="nav-item nav-link" id="nav-appointmentInfo" data-toggle="tab" href="#nav-appointmentInfoDiv" role="tab" aria-controls="nav-appoint" aria-selected="false">Appointment Details</a>
+
+        </div>
+    </nav>
+    <div class="tab-content" id="nav-tabContent">
+        <div class="tab-pane fade show active" id="nav-add-infoDiv" role="tabpanel" aria-labelledby="nav-fileuploadDiv">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card mb-4">
+                        <div class="card-header" style="background-color:#4a72b9;color:white">
+                            Personal Information
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+
+                                @Html.LabelFor(m => m.Title, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                                <div class="col-md-10">
+                                    @Html.DropDownListFor(model => model.Title, new List<SelectListItem> {
+                                            new SelectListItem{Text = "Mr" , Value = "Mr" },
+                                            new SelectListItem{Text = "Mrs" , Value = "Mrs"}
+                                    }, new { @class = "form-control", @required = "required" })
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-10">
+                                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger", @style = "font-size:13px" })
+
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top:20px">
+
+                                @Html.LabelFor(m => m.BuyerName, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                                <div class="col-md-2">
+                                    @Html.TextBoxFor(model => model.BuyerName, new { @class = "form-control", @required = "required" })
+
+                                </div>
+
+                                @Html.LabelFor(m => m.BuyerMiddleName, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                                <div class="col-md-2">
+                                    @Html.TextBoxFor(model => model.BuyerMiddleName, new { @class = "form-control" })
+                                </div>
+
+                                @Html.LabelFor(m => m.BuyerLastName, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                                <div class="col-md-2">
+                                    @Html.TextBoxFor(model => model.BuyerLastName, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-2">
+                                    @Html.ValidationMessageFor(model => model.BuyerName, "", new { @class = "text-danger", @style = "font-size:13px" })
+                                </div>
+
+                            </div>
+                            <div class="row" style="margin-top:20px">
+
+                                @Html.LabelFor(m => m.MobileNo, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                                <div class="col-md-4">
+                                    @Html.TextBoxFor(model => model.MobileNo, new { @class = "form-control", @required = "required" })
+                                </div>
+
+                                @Html.LabelFor(m => m.LoanAmount, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+                                <div class="col-md-4">
+                                    @Html.TextBoxFor(model => model.LoanAmount, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                </div>
+                                <div class="col-md-4">
+                                    @Html.ValidationMessageFor(model => model.MobileNo, "", new { @class = "text-danger", @style = "font-size:13px" })
+
+                                </div>
+                            </div>
+                            @*<div class="row" style="margin-top:20px">
+                                    @Html.LabelFor(m => m.City, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                                    <div class="col-md-10">
+                                        @Html.DropDownListFor(model => model.City, ViewBag.CityList as SelectList, "-Select-", new { @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-md-2">
+                                    </div>
+                                    <div class="col-md-10">
+                                        @Html.ValidationMessageFor(model => model.MobileNo, "", new { @class = "text-danger", @style = "font-size:13px" })
+                                    </div>
+                                </div>*@
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card mb-4">
+                        <div class="card-header" style="background-color:#4a72b9;color:white">
+                            Other Information
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                                <div class="col-md-4">
+                                    @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+                                </div>
+                                @Html.LabelFor(m => m.dob, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                                <div class="col-md-4">
+                                    @Html.TextBoxFor(model => model.dob, new { @class = "form-control", id = "dateofBirth", @readonly = "true" })
+
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-4">
+                                </div>
+                                <div class="col-md-2"></div>
+                                <div class="col-md-4">
+                                    @Html.ValidationMessageFor(model => model.dob, "", new { @class = "text-danger", @style = "font-size:13px" })
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top:20px">
+                                @Html.LabelFor(m => m.FatherFirstName, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                                <div class="col-md-2">
+                                    @Html.TextBoxFor(model => model.FatherFirstName, new { @class = "form-control" })
+                                </div>
+                                @Html.LabelFor(m => m.FatherMiddleName, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                                <div class="col-md-2">
+                                    @Html.TextBoxFor(model => model.FatherMiddleName, new { @class = "form-control" })
+                                </div>
+                                @Html.LabelFor(m => m.FatherLastName, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                                <div class="col-md-2">
+                                    @Html.TextBoxFor(model => model.FatherLastName, new { @class = "form-control" })
+                                </div>
+
+                            </div>
+                            <div class="row" style="margin-top:20px">
+                                @Html.LabelFor(m => m.MotherFirstName, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                                <div class="col-md-2">
+                                    @Html.TextBoxFor(model => model.MotherFirstName, new { @class = "form-control" })
+                                </div>
+                                @Html.LabelFor(m => m.MotherMiddleName, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                                <div class="col-md-2">
+                                    @Html.TextBoxFor(model => model.MotherMiddleName, new { @class = "form-control" })
+                                </div>
+                                @Html.LabelFor(m => m.MotherLastName, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                                <div class="col-md-2">
+                                    @Html.TextBoxFor(model => model.MotherLastName, new { @class = "form-control" })
+                                </div>
+
+                            </div>
+                            <div class="row" style="margin-top:20px">
+                                @Html.LabelFor(m => m.PanCard, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                                <div class="col-md-4">
+                                    @Html.TextBoxFor(model => model.PanCard, new { @class = "form-control" })
+                                </div>
+                                @Html.LabelFor(m => m.AadharCard, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                                <div class="col-md-4">
+                                    @Html.TextBoxFor(model => model.AadharCard, new { @class = "form-control" })
+                                </div>
+
+                            </div>
+                            <div class="row" style="margin-top:20px">
+                                @Html.LabelFor(m => m.MaritalStatus, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                                <div class="col-md-10">
+                                    @Html.DropDownListFor(model => model.MaritalStatus, new List<SelectListItem> {
+                                   new SelectListItem {Text= "SINGLE" , Value = "SINGLE"},
+                                   new SelectListItem {Text = "MARRIED" , Value = "MARRIED" }
+                                   }, new { @class = "form-control" })
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card mb-4">
+                        <div class="card-header" style="background-color:#4a72b9;color:white">
+                            Current Residence Details
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                @Html.LabelFor(m => m.Ownership, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                                <div class="col-md-2">
+                                    @Html.DropDownListFor(model => model.Ownership, new List<SelectListItem>
+                               {
+                                   new SelectListItem{Text = "COMPANY PROVIDED", Value = "COMPANY PROVIDED"},
+                                   new SelectListItem{Text = "SELF OWNED", Value = "SELF OWNED"},
+                                   new SelectListItem{Text = "PARANTAL OWNED", Value = "PARANTAL OWNED"},
+                                   new SelectListItem{Text = "RENTED - SINGLE", Value = "RENTED - SINGLE"},
+                                   new SelectListItem{Text = "RENTED - SHARED", Value = "RENTED - SHARED"},
+                                   new SelectListItem{Text = "RENTED WITH FAMILY", Value = "RENTED WITH FAMILY"},
+                                   new SelectListItem{Text = "RELATIVE HOUSE", Value = "RELATIVE HOUSE"},
+                               }, new { @class = "form-control", @required = "required" })
+
+                                </div>
+                                @Html.LabelFor(m => m.LivingSince, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                                <div class="col-md-2">
+                                    @Html.TextBoxFor(model => model.LivingSince, new { @class = "form-control", @readonly = "true", id = "livingsince", @required = "required" })
+
+                                </div>
+                                @Html.LabelFor(m => m.LivingInCitySince, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                                <div class="col-md-2">
+                                    @Html.TextBoxFor(model => model.LivingInCitySince, new { @class = "form-control", @required = "required", id = "livingInCitysince", @readonly = "true" })
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-2">
+                                    @Html.ValidationMessageFor(model => model.Ownership, "", new { @class = "text-danger", @style = "font-size:13px" })
+                                </div>
+
+                                <div class="col-md-2"></div>
+                                <div class="col-md-2">
+                                    @Html.ValidationMessageFor(model => model.LivingSince, "", new { @class = "text-danger", @style = "font-size:13px" })
+                                </div>
+                                <div class="col-md-2"></div>
+                                <div class="col-md-2">
+                                    @Html.ValidationMessageFor(model => model.LivingInCitySince, "", new { @class = "text-danger", @style = "font-size:13px" })
+                                </div>
+
+                            </div>
+                            <div class="row" style="margin-top:20px">
+                                @Html.LabelFor(m => m.Address, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(model => model.Address, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top:20px">
+                                @Html.LabelFor(m => m.Address2, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                                <div class="col-md-10">
+                                    @Html.TextBoxFor(model => model.Address2, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top:20px">
+                                @Html.LabelFor(m => m.State, new { @class = "col-md-2 control-label", @style = "margin:auto", id = "StateId" })
+
+                                <div class="col-md-2">
+                                    @Html.DropDownListFor(model => model.State, ViewBag.StateList as SelectList, "-Select State-", new { @class = "form-control", @required = "required" })
+                                </div>
+                                @Html.LabelFor(m => m.City, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                                <div class="col-md-2">
+                                    @Html.DropDownListFor(model => model.City, new SelectList(" "), "-Select City-", new { @class = "form-control", @required = "required" })
+
+                                </div>
+
+                                @Html.LabelFor(m => m.pincode, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                                <div class="col-md-2">
+                                    @Html.TextBoxFor(model => model.pincode, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-2">
+                                    @Html.ValidationMessageFor(model => model.State, "", new { @class = "text-danger", @style = "font-size:13px" })
+                                </div>
+
+                                <div class="col-md-2"></div>
+                                <div class="col-md-2">
+                                    @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger", @style = "font-size:13px" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card mb-4">
+                        <div class="card-header" style="background-color:#4a72b9;color:white">
+                            Employment Details
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                @Html.LabelFor(m => m.EmploymentStatus, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                                <div class="col-md-4">
+                                    @Html.DropDownListFor(model => model.EmploymentStatus, new List<SelectListItem>
+                               {
+                                   new SelectListItem{Text= "SALARIED" , Value = "SALARIED"},
+                                   new SelectListItem{Text= "SELF EMPLOYED" , Value = "SELF EMPLOYED"},
+                               }, new { @class = "form-control", @required = "required" })
+                                </div>
+
+                                @Html.LabelFor(m => m.CompanyName, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                                <div class="col-md-4">
+                                    @Html.TextBoxFor(model => model.CompanyName, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-4">
+                                    @Html.ValidationMessageFor(model => model.EmploymentStatus, "", new { @class = "text-danger", @style = "font-size:13px" })
+                                </div>
+
+                            </div>
+                            <div class="row" style="margin-top:20px">
+                                @Html.LabelFor(m => m.SalaryCreditType, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                                <div class="col-md-4">
+                                    @Html.DropDownListFor(model => model.SalaryCreditType, new List<SelectListItem>
+                               {
+                                   new SelectListItem{Text= "ACCOUNT" , Value = "ACCOUNT"},
+                                   new SelectListItem{Text= "IN CASH" , Value = "IN CASH"},
+                               }, new { @class = "form-control" })
+                                </div>
+                                @Html.LabelFor(m => m.JoiningYearandMonth, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                                <div class="col-md-4">
+                                    @Html.TextBoxFor(model => model.JoiningYearandMonth, new { @class = "form-control", id = "JoiningDate", @readonly = "true", @required = "required" })
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-4">
+                                </div>
+                                <div class="col-md-2"></div>
+                                <div class="col-md-4">
+                                    @Html.ValidationMessageFor(model => model.JoiningYearandMonth, "", new { @class = "text-danger", @style = "font-size:13px" })
+                                </div>
+
+                            </div>
+                            <div class="row" style="margin-top:20px">
+                                @Html.LabelFor(m => m.MonthlySalary, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                                <div class="col-md-4">
+                                    @Html.TextBoxFor(model => model.MonthlySalary, new { @class = "form-control", min = "15000" })
+                                    @Html.ValidationMessageFor(model => model.MonthlySalary, "", new { @class = "text-danger", @style = "font-size:13px" })
+
+                                </div>
+
+                                @Html.LabelFor(m => m.ConstitutionOfCompany, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                                <div class="col-md-4">
+                                    @Html.DropDownListFor(model => model.ConstitutionOfCompany, new List<SelectListItem>
+                                                                   {
+                                                                       new SelectListItem{Text= "PROPRIETERSHIP FIRM" , Value = "PROPRIETERSHIP FIRM"},
+                                                                       new SelectListItem{Text= "PARTNERSHIP FIRM" , Value = "PARTNERSHIP FIRM"},
+                                                                       new SelectListItem{Text= "LIMITED LIABILITY PARTNERSHIP(LLP)" , Value = "LIMITED LIABILITY PARTNERSHIP(LLP)"},
+                                                                       new SelectListItem{Text= "PRIVATE LIMITED COMPANY" , Value = "PRIVATE LIMITED COMPANY"},
+                                                                       new SelectListItem{Text= "PUBLIC LIMITED COMPANY" , Value = "PUBLIC LIMITED COMPANY"},
+                                                                       new SelectListItem{Text= "SOCIETY,TRUST,INSTITUTE" , Value = "SOCIETY,TRUST,INSTITUTE"},
+                                                                       new SelectListItem{Text= "STATE GOVT." , Value = "STATE GOVT."},
+                                                                       new SelectListItem{Text= "CENTRAL GOVT." , Value = "CENTRAL GOVT."},
+                                                                       new SelectListItem{Text= "OTHER" , Value = "OTHER"},
+
+                                                                   }, new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <label style="color:red;font-size:13px">*Please Enter Salary more than 15000*</label>
+
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top:20px">
+                                <div class="col-md-12">
+                                    <b>Office Address</b>
+                                </div>
+                            </div>
+                            @*<div class="row" style="margin-top:20px">
+                                    @Html.LabelFor(m => m.officeAddressLine, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                                    <div class="col-md-10">
+                                        @Html.TextBoxFor(model => model.officeAddressLine, new { @class = "form-control" })
+                                    </div>
+                                </div>
+                                <div class="row" style="margin-top:20px">
+                                    @Html.LabelFor(m => m.officeAddressLine2, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                                    <div class="col-md-10">
+                                        @Html.TextBoxFor(model => model.officeAddressLine2, new { @class = "form-control" })
+                                    </div>
+                                </div>*@
+                            @*<div class="row" style="margin-top:20px">
+                                    @Html.LabelFor(m => m.OfficeState, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                                    <div class="col-md-2">
+                                        @Html.DropDownListFor(model => model.OfficeState, ViewBag.OfficeStateList as SelectList, "-Select State-", new { @class = "form-control", @required = "required" })
+                                    </div>
+                                    @Html.LabelFor(m => m.OfficeCity, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                                    @if (Model.OfficeCity != null)
+                                    {
+                                        <div class="col-md-2">
+                                            @Html.DropDownListFor(model => model.OfficeCity, ViewBag.officeCityList as SelectList, "-Select City-", new { @class = "form-control", @required = "required" })
+
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="col-md-2">
+                                            @Html.DropDownListFor(model => model.OfficeCity, new SelectList(" "), "-Select City-", new { @class = "form-control", @required = "required" })
+                                        </div>
+                                    }
+                                    @Html.LabelFor(m => m.pincode, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                                    <div class="col-md-2">
+                                        @Html.TextBoxFor(model => model.Officepincode, new { @class = "form-control" })
+                                    </div>
+                                </div>*@
+                            @*<div class="row">
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-2">
+                                        @Html.ValidationMessageFor(model => model.OfficeState, "", new { @class = "text-danger", @style = "font-size:13px" })
+                                    </div>
+
+                                    <div class="col-md-2"></div>
+                                    <div class="col-md-2">
+                                        @Html.ValidationMessageFor(model => model.OfficeCity, "", new { @class = "text-danger", @style = "font-size:13px" })
+                                    </div>
+                                </div>*@
+                            @*<div class="row" style="margin-top:20px">
+                                    @Html.LabelFor(m => m.PersonalComments, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                                    <div class="col-md-10">
+                                        @Html.TextAreaFor(model => model.PersonalComments, new { @rows = "2", @class = "form-control" })
+                                    </div>
+                                </div>*@
+                            <div class="row" style="margin-top:20px">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-10">
+                                    <a href="#" onclick="openComment(@Model.BuyerId)" class="btn btn-primary">View Previous Comments</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <input type="submit" value="Update Details" class="btn btn-success" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tab-pane fade" id="nav-fileuploadDiv" role="tabpanel" aria-labelledby="nav-fileuploadDiv">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card mb-4">
+                        <div class="card-header" style="background-color:#4a72b9;color:white">
+                            Address Proof
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    @Html.CheckBoxFor(model => model.PassportCopy)
+                                    @Html.Label("PASSPORT COPY")
+                                </div>
+                                <div class="col-md-4">
+                                    @Html.CheckBoxFor(model => model.DrivingLicenceWithDob)
+                                    @Html.Label("PHOTO DRIVING LICENCE WITH DOB")
+                                </div>
+                                <div class="col-md-4">
+                                    @Html.CheckBoxFor(model => model.VotersId)
+                                    @Html.Label("VOTERS ID")
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    @Html.CheckBoxFor(model => model.ElectricityBill)
+                                    @Html.Label("ELECTRICITY BILL")
+                                </div>
+                                <div class="col-md-4">
+                                    @Html.CheckBoxFor(model => model.TelephoneBill)
+                                    @Html.Label("TELEPHONE BILL")
+                                </div>
+                                <div class="col-md-4">
+                                    @Html.CheckBoxFor(model => model.LeaveLicenceAggrCopy)
+                                    @Html.Label("LEAVE & LICENCE AGGRREMENT COPY")
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    @Html.CheckBoxFor(model => model.CompanyAccoLetter)
+                                    @Html.Label("COMPANY ACCO LETTER CAT A & CAT B")
+                                </div>
+                                <div class="col-md-4">
+                                    @Html.CheckBoxFor(model => model.OtherBankStatmnt)
+                                    @Html.Label("OTHER BANK STATEMENT")
+                                </div>
+                                <div class="col-md-4">
+                                    @Html.CheckBoxFor(model => model.TelephoneProof)
+                                    @Html.Label("TELEPHONE / MOBILE PROOF")
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    @Html.CheckBoxFor(model => model.AadharCardCopy)
+                                    @Html.Label("AADHAR CARD")
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(model => model.addressProof, new { @type = "file", onchange = "checkFileCount(this)", @multiple = "multiple" })
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="card-footer">
+                            <div class="row">
+                                @foreach (var item in ViewBag.docUploaded)
+                                {
+                                    if (item.FileType == 1)
+                                    {
+
+                                        <div class="col-md-2" id="divaddressproof">
+                                            <a href="~/Content/Files/@item.FileName" target="_blank">
+                                                <i class=" fa fa-2x fa-file-alt" style="color:#4e9e97">
+                                                    <h4 style="font-size:14px"> @item.FileName</h4>
+                                                </i>
+
+                                            </a>
+                                            <a href="javascript:void(0);" onclick="DeleteFile(@item.Id,'#divaddressproof')"><span class="fa fa-trash" id="DeleteDocument"></span></a>
+                                        </div>
+
+                                    }
+                                }
+                                @*<a href="~/Content/Files/@Model.AddressProofFilePath" target="_blank">View Uploaded File For Address Proof</a>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card mb-4">
+                        <div class="card-header" style="background-color:#4a72b9;color:white">
+                            Application Form <label style="color:red">(Only For HDFC Bank)</label>
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    @Html.CheckBoxFor(model => model.ApplicationFormImaging)
+                                    @Html.Label("APPLICATION FORM - IMAGING")
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    @Html.TextBoxFor(model => model.applicationForm, new { @type = "file", @multiple = "multiple" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="row">
+                                @foreach (var item in ViewBag.docUploaded)
+                                {
+                                    if (item.FileType == 2)
+                                    {
+                                        <div class="col-md-2" id="divonlyhdfcbank">
+                                            <a href="~/Content/Files/@item.FileName" target="_blank">
+                                                <i class=" fa fa-2x fa-file-alt" style="color:#4e9e97">
+                                                    <h4 style="font-size:14px"> @item.FileName</h4>
+                                                </i>
+
+                                            </a>
+                                            <a href="javascript:void(0);" onclick="DeleteFile(@item.Id,'#divonlyhdfcbank')"><span class="fa fa-trash" id="DeleteDocument"></span></a>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card mb-4">
+                        <div class="card-header" style="background-color:#4a72b9;color:white">
+                            Income Proof
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    @Html.CheckBoxFor(model => model.Form16)
+                                    @Html.Label("FORM 16")
+                                </div>
+                                <div class="col-md-4">
+                                    @Html.CheckBoxFor(model => model.AppointmentLetter)
+                                    @Html.Label("APPOINTMENT LETTER")
+                                </div>
+                                <div class="col-md-4">
+                                    @Html.CheckBoxFor(model => model.SalarySlip)
+                                    @Html.Label("SALARY SLIP - LATEST 3 MONTHS")
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    @Html.CheckBoxFor(model => model.Itr)
+                                    @Html.Label("ITR")
+                                </div>
+                                <div class="col-md-4">
+                                    @Html.CheckBoxFor(model => model.GstCertification)
+                                    @Html.Label("GST CERTIFICATION")
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(model => model.incomeProof, new { @type = "file", @multiple = "multiple" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="row">
+                                @foreach (var item in ViewBag.docUploaded)
+                                {
+                                    if (item.FileType == 3)
+                                    {
+                                        <div class="col-md-2" id="divincomeproof">
+                                            <a href="~/Content/Files/@item.FileName" target="_blank">
+                                                <i class=" fa fa-2x fa-file-alt" style="color:#4e9e97">
+                                                    <h4 style="font-size:14px"> @item.FileName</h4>
+                                                </i>
+
+                                            </a>
+                                            <a href="javascript:void(0);" onclick="DeleteFile(@item.Id,'#divincomeproof')"><span class="fa fa-trash" id="DeleteDocument"></span></a>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card mb-4">
+                        <div class="card-header" style="background-color:#4a72b9;color:white">
+                            Bank Statement
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    @Html.CheckBoxFor(model => model.BankStatementLatestSixMonths)
+                                    @Html.Label("BANK STMT LATEST 6 MONTHS")
+                                </div>
+                                <div class="col-md-4">
+                                    @Html.CheckBoxFor(model => model.BankStatmentThreeMonths)
+                                    @Html.Label("BANK STMT LESS THAN 3 MONTHS")
+                                </div>
+                                <div class="col-md-4">
+                                    @Html.CheckBoxFor(model => model.BankStatementYear)
+                                    @Html.Label("BANK STMT 12 MONTHS")
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(model => model.bankStatement, new { @type = "file", @multiple = "multiple" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="row">
+                                @foreach (var item in ViewBag.docUploaded)
+                                {
+                                    if (item.FileType == 4)
+                                    {
+
+                                        <div class="col-md-2" id="divbankstatement">
+                                            <a href="~/Content/Files/@item.FileName" target="_blank">
+                                                <i class=" fa fa-2x fa-file-alt" style="color:#4e9e97">
+                                                    <h4 style="font-size:14px"> @item.FileName</h4>
+                                                </i>
+
+                                            </a>
+                                            <a href="javascript:void(0);" onclick="DeleteFile(@item.Id,'#divbankstatement')"><span class="fa fa-trash" id="DeleteDocument"></span></a>
+                                        </div>
+
+                                    }
+                                }
+                                @*<a href="~/Content/Files/@Model.AddressProofFilePath" target="_blank">View Uploaded File For Address Proof</a>*@
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card mb-4">
+                        <div class="card-header" style="background-color:#4a72b9;color:white">
+                            Identity Proof
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    @Html.CheckBoxFor(model => model.VotersIdCard)
+                                    @Html.Label("VOTERS ID CARD")
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(model => model.identityProof, new { @type = "file", @multiple = "multiple" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="row">
+                                @foreach (var item in ViewBag.docUploaded)
+                                {
+                                    if (item.FileType == 5)
+                                    {
+                                        <div class="col-md-2" id="dividentityproof">
+                                            <a href="~/Content/Files/@item.FileName" target="_blank">
+                                                <i class=" fa fa-2x fa-file-alt" style="color:#4e9e97">
+                                                    <h4 style="font-size:14px"> @item.FileName</h4>
+                                                </i>
+                                            </a>
+                                            <a href="javascript:void(0);" onclick="DeleteFile(@item.Id,'#dividentityproof')"><span class="fa fa-trash" id="DeleteDocument"></span></a>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card mb-4">
+                        <div class="card-header" style="background-color:#4a72b9;color:white">
+                            Profile Documents
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    @Html.CheckBoxFor(model => model.PanCardId)
+                                    @Html.Label("PAN CARD")
+                                </div>
+                                <div class="col-md-4">
+                                    @Html.CheckBoxFor(model => model.ProfilePhoto)
+                                    @Html.Label("PROFILE PHOTO")
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-8">
+                                    @Html.TextBoxFor(model => model.profileDocumet, new { @type = "file", @multiple = "multiple" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="row">
+                                @foreach (var item in ViewBag.docUploaded)
+                                {
+                                    if (item.FileType == 6)
+                                    {
+                                        <div class="col-md-2" id="divprofiledocuments">
+                                            <a href="~/Content/Files/@item.FileName" target="_blank">
+                                                <i class=" fa fa-2x fa-file-alt" style="color:#4e9e97">
+                                                    <h4 style="font-size:14px"> @item.FileName</h4>
+                                                </i>
+                                            </a>
+                                            <a href="javascript:void(0);" onclick="DeleteFile(@item.Id,'#divprofiledocuments')"><span class="fa fa-trash" id="DeleteDocument"></span></a>
+                                        </div>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <input type="submit" value="Submit Details" formaction="UpdateFileDetails" formmethod="post" class="btn btn-success" />
+            </div>
+        </div>
+
+        <div id="nav-appointmentInfoDiv" class="tab-pane fade" role="tabpanel" aria-labelledby="nav-appointmentInfoDiv">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card mb-4">
+                        <div class="card-header" style="background-color:#4a72b9;color:white">
+                            Book Appointment
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+
+                                @Html.Label("Appointment Date & Time", new { @class = "col-md-3 control-label", @style = "margin:auto" })
+
+                                <div class="col-md-3">
+                                    @Html.TextBoxFor(model => model.AppointmentDate, new { @class = "form-control", @required = "required", @readonly = "true" })
+                                </div>
+                                <div class="col-md-3">
+                                    @Html.TextBoxFor(model => model.AppointmentTimeFromDb, new { @class = "form-control", @required = "required", @readonly = "true" })
+                                </div>
+                                <div class="col-md-3">
+                                    @Html.TextBoxFor(model => model.AppointmentTime, new { @class = "form-control", @required = "required" })
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-3"></div>
+                                <div class="col-md-3">
+                                    @Html.ValidationMessageFor(model => model.AppointmentDate, "", new { @class = "text-danger", @style = "font-size:13px" })
+                                </div>
+                                <div class="col-md-3"></div>
+                                <div class="col-md-3">
+                                    @Html.ValidationMessageFor(model => model.AppointmentTime, "", new { @class = "text-danger", @style = "font-size:13px" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <input type="submit" value="Book Appointment" class="btn btn-success" formaction="BookAppointment" formmethod="post" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<link href="~/Content/bootstrap-datepicker.min.css" rel="stylesheet" />
+<link href="~/Content/Helper/wickedpicker.min.css" rel="stylesheet" />
+<style>
+    .datepicker td, .datepicker th {
+        width: 2.5rem;
+        height: 2.5rem;
+        font-size: 0.85rem;
+    }
+
+    .datepicker {
+        margin-bottom: 3rem;
+    }
+</style>
+@section Scripts{
+    <script src="~/Scripts/bootstrap-datepicker.min.js"></script>
+    <script src="~/Content/Helper/wickedpicker.min.js"></script>
+    <script>
+        $('#dateofBirth').datepicker({
+            ignoreReadonly: true
+        });
+        $('#livingsince').datepicker({
+            format: "yyyy",
+            viewMode: "years",
+            minViewMode: "years",
+            ignoreReadonly: true
+        });
+        $('#livingInCitysince').datepicker({
+            format: "yyyy",
+            viewMode: "years",
+            minViewMode: "years",
+            ignoreReadonly: true
+        });
+        $('#JoiningDate').datepicker({
+            format: "mm-yyyy",
+            viewMode: "months",
+            minViewMode: "months",
+            ignoreReadonly: true
+        });
+
+        $(document).ready(function () {
+
+            $("#State").change(function () {
+                $.get("/Member/GetCityList", { StateId: $("#State").val() }, function (data) {
+                    $("#City").empty();
+                    $.each(data, function (index, row) {
+                        $("#City").append("<option value = '" + row.CityCode + "'>" + row.CityName + "</option>")
+                    });
+                });
+            });
+            $("#OfficeState").change(function () {
+                $.get("/Member/GetCityList", { StateId: $("#OfficeState").val() }, function (data) {
+                    $("#OfficeCity").empty();
+                    $.each(data, function (index, row) {
+                        $("#OfficeCity").append("<option value = '" + row.CityCode + "'>" + row.CityName + "</option>")
+                    });
+                });
+            })
+
+        });</script>
+}

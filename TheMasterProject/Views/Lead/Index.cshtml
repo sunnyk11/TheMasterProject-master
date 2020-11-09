@@ -1,0 +1,23 @@
+﻿@model TheMasterProject.Models.InboundViewModel
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_SBInboundTeam.cshtml";
+}
+
+@using (Html.BeginForm("Search", "Lead", FormMethod.Get))
+{
+    <div style="padding:20px; background-color:darkgrey">
+        <div class="form-inline mr-auto w-100 navbar-search">
+            <div class="input-group">
+                @Html.TextBoxFor(model => model.SearchText, new { @style = "width:420px;height:45px", @class = "form-control bg-light border-0 small", @placeholder = "Search for..." })
+                @*<input type="text" style="width:420px;height:45px" id="searchText" class="form-control bg-light border-0 small" placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">*@
+                <div class="input-group-append">
+                    <button class="btn btn-primary" type="submit" id="btnSearch">
+                        <i class="fas fa-search fa-sm"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

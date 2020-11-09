@@ -1,0 +1,274 @@
+﻿@model IEnumerable<TheMasterProject.Models.BuyerRelation>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_SBAssistantManager.cshtml";
+}
+
+<div class="row">
+
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Leads</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">400</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-calendar fa-2x text-300" style="color:#4e73df"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Loan Sanctioned</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">₹ 215,000</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-dollar-sign fa-2x text-300" style="color:#1cc88a"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-info shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Leads Completed</div>
+                        <div class="row no-gutters align-items-center">
+                            <div class="col-auto">
+                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">300</div>
+                            </div>
+
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-clipboard-list fa-2x" style="color:#36b9cc"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div class="card border-left-warning shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Pending Requests</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">100</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-comments fa-2x" style="color:#f6c23e"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Current Leads To Be Followed</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered" style="width:100%" id="LeadDetails">
+                <thead>
+                    <tr>
+                        <th>
+                            S.No
+                        </th>
+
+                        <th>
+                            Lead Id
+                        </th>
+                        <th>
+                            Person Name
+                        </th>
+                        <th>
+                            Mobile No.
+                        </th>
+                        <th>
+                            Assigned To
+                        </th>
+                        <th>
+                            Current Status
+                        </th>
+                        <th>
+                            Action
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td></td>
+                            <td>
+                                @item.BuyerDetail.BuyerId
+                            </td>
+                            <td>
+                                @item.BuyerDetail.BuyerName
+                            </td>
+                            <td>
+                                @item.BuyerDetail.MobileNo
+                            </td>
+                            @if (item.MemberId == null)
+                            {
+                                <td>
+                                    --No Member Assigned--
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    @item.MemberDetail.FirstName
+                                </td>
+                            }
+                            @if (item.BuyerDetail.currenStatus == null)
+                            {
+                                <td>--New Lead--</td>
+                            }
+                            else
+                            {
+                                <td>
+                                    @item.BuyerDetail.currenStatus
+                                </td>
+                            }
+                            <td>
+
+                                <a href="#" onclick="ViewDetails(@item.BuyerId)">
+                                    <i class="fas fa-info-circle" style="font-size:19px"></i>
+                                </a>
+                                <a href="#" class="btn btn-success btn-icon-split btn-sm" onclick="AssignLead(@item.BuyerId)" style="margin-left:20px">
+                                    <span class="icon text-white-50">
+                                        <i class="fas fa-check"></i>
+                                    </span>
+                                    <span class="text">Assign Member</span>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-xl-8 col-lg-7">
+        <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Leads Incoming Growth</h6>
+
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <div class="chart-area">
+                    <canvas id="myAreaChart"></canvas>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-4 col-lg-5">
+        <div class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Top 3 Places With Most Leads</h6>
+
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <div class="chart-pie pt-4 pb-2">
+                    <canvas id="myPieChart"></canvas>
+                </div>
+                <div class="mt-4 text-center small">
+                    <span class="mr-2">
+                        <i class="fas fa-circle text-primary"></i> Patel Nagar
+                    </span>
+                    <span class="mr-2">
+                        <i class="fas fa-circle text-success"></i> Chattarpur
+                    </span>
+                    <span class="mr-2">
+                        <i class="fas fa-circle text-info"></i> West Delhi
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" id="modalDialog">
+        <div class="modal-content" id="modalContent">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"></h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modalbodydiv"></div>
+
+        </div>
+    </div>
+</div>
+
+<link href="~/SB-Admin/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+@section Scripts{
+    <script src="~/SB-Admin/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/SB-Admin/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="~/SB-Admin/js/demo/datatables-demo.js"></script>
+    <script>
+        var AssignLead = (buyerid) => {
+
+            $.ajax({
+                type: "GET",
+                url: "/AssistantManager/AssignMemberToBuyer",
+                data: { BuyerId: buyerid },
+                success: function (response) {
+                    $("#modalbodydiv").html(response);
+                    $("#exampleModalLabel").text("Assign Member To Current Lead");
+                    $("#myModal").modal("show");
+                    $('#modalDialog').removeClass('modal-dialog modal-lg');
+                    $('#modalDialog').addClass('modal-dialog modal-xs');
+                }
+            });
+        };
+
+        var ViewDetails = (buyerid) => {
+            $.ajax({
+                type: "GET",
+                url: "/AssistantManager/ViewLeadDetails",
+                data: { BuyerId: buyerid },
+                success: function (response) {
+                    $("#modalbodydiv").html(response);
+                    $("#exampleModalLabel").text("Current Lead Details");
+                    $("#myModal").modal("show");
+                    $('#modalDialog').addClass('modal-dialog modal-lg');
+                }
+            });
+        };
+
+        $(document).ready(function () {
+            $('#LeadDetails').DataTable({
+                "fnRowCallback": function (nRow, aData, iDisplayIndex) {
+                    $("td:first", nRow).html(iDisplayIndex + 1);
+                    return nRow;
+                },
+            });
+        });
+    </script>
+}

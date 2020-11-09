@@ -1,0 +1,21 @@
+﻿@model TheMasterProject.Models.AssistantManagerToMemberViewModel
+
+@using (Html.BeginForm("AssignTeamMember", "ManageRelation", FormMethod.Post))
+{
+    <div class="row">
+        @Html.HiddenFor(model => model.AssistantManagerId)
+        <div class="col-md-2" style="margin:auto">Assign</div>
+        <div class="col-md-6" style="margin:auto">
+            @Html.DropDownListFor(model => model.TeamMemberId, (IEnumerable<SelectListItem>)ViewBag.teammember, new { @class = "form-control" })
+        </div>
+        <div class="col-md-4" style="margin:auto">To AM: <b>@Model.AssistantManagerName</b></div>
+    </div>
+    <div class="row">
+        <div class="col-md-2"></div>
+        <div class="col-md-6"></div>
+        <div class="col-md-4">
+            <input type="submit" class="btn btn-primary" value="Update" style="width:100%" />
+        </div>
+    </div>
+
+}

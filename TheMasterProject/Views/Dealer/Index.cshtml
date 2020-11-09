@@ -1,0 +1,152 @@
+﻿@model IEnumerable<TheMasterProject.ViewModels.DealerToLeadRelation>
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_SBAdminDealer.cshtml";
+}
+<div class="alert alert-primary" role="alert">
+    @if (ViewBag.ManagerAssigned.ManagerDetails != null)
+    {
+        <label>  <b>Mr. @ViewBag.ManagerAssigned.ManagerDetails.FirstName</b> Has been assigned as your Relationsip Manager. You can contact him on <b> @ViewBag.ManagerAssigned.ManagerDetails.MobileNo</b></label>
+
+    }
+    else
+    {
+        <label>Currently You have not been assigned any Relationship Manager.</label>
+    }
+</div>
+
+    <a href="@Url.Action("AddLeadDetail","Dealer")" class="btn btn-primary">Add Lead</a>
+
+
+<div class="card shadow mb-4" style="margin-top:20px">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Current Leads To Be Followed</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered" style="width:100%" id="LeadDetails">
+                <thead>
+                    <tr>
+                        <th>
+                            S.No
+                        </th>
+
+                        <th>
+                            Person Name
+                        </th>
+                        <th>
+                            Mobile No.
+                        </th>
+                        <th>
+                            Aadhar Card
+                        </th>
+                        <th>
+                            Pan Card
+                        </th>
+                        
+                        <th>
+                            Current Status
+                        </th>
+                        <th>
+
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td style="width:5%"></td>
+                            <td style="width:15%">
+                                @item.BuyerName
+                            </td>
+                            <td style="width:15%">
+                                @item.PhoneNo
+                            </td>
+                            <td style="width:15%">
+                                @item.AadharCard
+                            </td>
+                            <td style="width:15%">
+                                @item.PanCard
+                            </td>
+
+                           
+                            @if (item.LeadStatus == null)
+                            {
+                                <td style="width:15%">--New Lead--</td>
+                            }
+                            else
+                            {
+                                <td style="width:15%">
+                                    @item.LeadStatus
+                                </td>
+                            }
+                            <td style="width:20%">
+
+                                
+                                <a href="#" class="btn btn-success btn-icon-split btn-sm" onclick="ViewDetails(@item.BuyerId)" style="margin-left:20px">
+                                    <span class="icon text-white-50">
+                                        <i class="fas fa-check"></i>
+                                    </span>
+                                    <span class="text">View Details</span>
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" id="modalDialog">
+        <div class="modal-content" id="modalContent">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"></h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modalbodydiv"></div>
+
+        </div>
+    </div>
+</div>
+
+<link href="~/SB-Admin/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+@section Scripts{
+    <script src="~/SB-Admin/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/SB-Admin/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="~/SB-Admin/js/demo/datatables-demo.js"></script>
+    <script>
+
+        $(document).ready(function () {
+
+            $('#LeadDetails').DataTable({
+                "fnRowCallback": function (nRow, aData, iDisplayIndex) {
+                    $("td:first", nRow).html(iDisplayIndex + 1);
+                    return nRow;
+                },
+            });
+        });
+
+        var ViewDetails = (buyerid) => {
+
+            $.ajax({
+                type: "GET",
+                url: "/Dealer/ViewDetails",
+                data: { BuyerId: buyerid },
+                success: function (response) {
+                    $("#modalbodydiv").html(response);
+                    $("#exampleModalLabel").text("Lead Details");
+                    $("#myModal").modal("show");
+                    $('#modalDialog').addClass('modal-dialog modal-lg');
+                    
+                }
+            });
+        };
+    </script>
+}

@@ -1,0 +1,120 @@
+﻿@model TheMasterProject.Models.ApplicationUser
+@{
+    int counter = 0;
+    ViewBag.Title = "ViewDetails";
+}
+
+<div class="row" style="margin-top:30px">
+    <div class="col-md-12">
+        <div class="panel panel-primary" style="margin-left:auto;margin-right:auto;width:550px">
+            <div class="panel-heading">
+                <h4> User Complete Details</h4>
+            </div>
+            <div class="panel-body">
+                @Html.AntiForgeryToken()
+                
+                        <table class="table table-bordered">
+                            <tr>
+                                <td>@Html.DisplayNameFor(model => model.FullName)</td>
+                                <td>@Html.DisplayFor(model => model.FullName)</td>
+                            </tr>
+                            <tr>
+                                <td>@Html.DisplayNameFor(model => model.Gender)</td>
+                                @if (Model.Gender == "M")
+                                {
+                                    <td>@Html.Label("Male")</td>
+                                }
+                                else
+                                {
+                                    <td>@Html.Label("Female")</td>
+                                }
+                            </tr>
+                            <tr>
+                                <td>@Html.DisplayNameFor(model => model.DateOfBirth)</td>
+                                <td>@Html.DisplayFor(model => model.DateOfBirth)</td>
+                            </tr>
+                            <tr>
+                                <td>@Html.DisplayNameFor(model => model.MaritalStatus)</td>
+
+                                @if (Model.MaritalStatus == "M")
+                                {
+                                    <td>@Html.Label("Married")</td>
+                                }
+                                else
+                                {
+                                    <td>@Html.Label("Un Married")</td>
+                                }
+                            </tr>
+                            <tr>
+                                <td>@Html.DisplayNameFor(model => model.MobileNo)</td>
+                                <td>@Html.DisplayFor(model => model.MobileNo)</td>
+                            </tr>
+                            <tr>
+                                <td>@Html.DisplayNameFor(model => model.CurrentlyLivingIn)</td>
+                                <td>@Html.DisplayFor(model => model.CurrentlyLivingIn)</td>
+                            </tr>
+                            <tr>
+                                <td>@Html.DisplayNameFor(model => model.pincode)</td>
+                                <td>@Html.DisplayFor(model => model.pincode)</td>
+                            </tr>
+                        
+                            <tr>
+                                <td>@Html.DisplayNameFor(model => model.AadharCard)</td>
+                                <td>@Html.DisplayFor(model => model.AadharCard)</td>
+                            </tr>
+                            <tr>
+                                <td>@Html.DisplayNameFor(model => model.Email)</td>
+                                <td>@Html.DisplayFor(model => model.Email)</td>
+                            </tr>
+                            
+                            @*<tr>
+                                <td rowspan="@ViewBag.RowCount"@Html.DisplayNameFor(model => model.LeadAssigned)></td>
+
+                            </tr>*@
+                                                                                                                                                                                                    
+                            <tr>
+                                <td>@Html.DisplayNameFor(model => model.LeadAssigned)</td>
+                                @if (Model.LeadAssigned == null)
+                                {
+                                    <td>@Html.Label("--No Lead Assigned--")</td>
+                                }
+                                else
+                                {    
+                                    <td>                       
+                                        @foreach (var items in ViewBag.LeadName)
+                                        {
+                                            counter++;
+                                                @items.Leadid.UserName @(counter< ViewBag.LeadName.Count?" | ":"")
+                                        }
+                                    </td>
+
+                                    @*<td>@Html.DisplayFor(model => model.LeadAssigned)</td>*@
+                                }
+                            </tr>
+                            <tr>
+                                <td>@Html.DisplayNameFor(model => model.UserType)</td>
+                                @if (Model.UserType == 1)
+                                {
+                                    <td>@Html.Label("Project Lead")</td>
+                                }
+                                else if(Model.UserType == 2)
+                                {
+                                    <td>@Html.Label("Team Member")</td>
+                                }
+                                else
+                                {
+                                    <td>@Html.Label("Super Admin")</td>
+                                }
+                            </tr>
+                            
+                           
+                        </table>
+                    <center>@Html.ActionLink("<< Back To User List", "ManageUser", routeValues: null)</center>
+                    </div>
+                   
+                
+            </div>
+        </div>
+    </div>
+
+

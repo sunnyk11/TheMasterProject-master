@@ -1,0 +1,124 @@
+﻿@model IEnumerable<TheMasterProject.Models.ApplicationUser>
+@{
+    int counter = 0;
+    ViewBag.Title = "AssignTeamLead";
+    Layout = "~/Views/Shared/_SBAdminMaster.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Assign Assistant Manager To Managers</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered" style="width:100%" id="LeadDetails">
+                        <thead>
+                            <tr>
+                                <th>
+                                    S.No
+                                </th>
+                                <th>
+                                    Manager Name
+                                </th>
+                                <th>
+                                    Assitant Manager Assigned
+                                </th>
+                                <th>
+                                    Action
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                            <tr>
+                                <td></td>
+                                <td>
+                                    @item.Id
+                                </td>
+
+
+                                @if (item.AssitantManagerId == null)
+                                {
+                                    <td>
+                                        --No Assitant Manager Assigned--
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        @item.AssitantManagerId
+                                    </td>
+
+                                }
+
+
+                                <td>
+                                    <a href="#" onclick="AssignAssistantManager(@item.Id)" style="margin-left:20px;font-size:19px">
+                                        <i class="fas fa-edit"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" id="modalDialog">
+        <div class="modal-content" id="modalContent">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"></h5>
+                <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modalbodydiv"></div>
+
+        </div>
+    </div>
+</div>
+
+<link href="~/SB-Admin/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+@section Scripts{
+    <script src="~/SB-Admin/vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="~/SB-Admin/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="~/SB-Admin/js/demo/datatables-demo.js"></script>
+    <script>
+        $(document).ready(function () {
+
+            $('#LeadDetails').DataTable({
+                "fnRowCallback": function (nRow, aData, iDisplayIndex) {
+                    $("td:first", nRow).html(iDisplayIndex + 1);
+                    return nRow;
+                },
+            });
+        });
+        
+        var AssignAssistantManager = (userId) => {
+
+            $.ajax({
+                type: "GET",
+                url: "/UserDetail/AssignAssistantManager",
+                data: { userId: userId },
+                success: function (response) {
+
+                    $("#modalbodydiv").html(response);
+                    $("#exampleModalLabel").text("Assign Assistant Manager To Manager");
+                    $("#myModal").modal("show");
+                    $('#modalDialog').addClass('modal-dialog modal-lg');
+
+                    
+                },
+            });
+        };
+    </script>
+}

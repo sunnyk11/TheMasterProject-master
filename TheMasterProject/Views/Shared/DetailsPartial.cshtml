@@ -1,0 +1,185 @@
+﻿@model TheMasterProject.Models.Buyer_Detail
+<form class="user">
+    <div class="row">
+        <div class="col-md-6">
+
+            <div class="card">
+                <div class="card-header py-2">
+                    <h5>Personal Information</h5>
+                </div>
+                <div class="card-body">
+
+                    <div class="form-group row">
+                        @Html.LabelFor(m => m.BuyerName, new { @class = "col-md-4 control-label" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.BuyerName, new { @class = "form-control", disabled = "disabled" })
+
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        @Html.LabelFor(m => m.MobileNo, new { @class = "col-md-4 control-label" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.MobileNo, new { @class = "form-control", disabled = "disabled" })
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        @Html.LabelFor(m => m.Gender, new { @class = "col-md-4 control-label" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.Gender, new { @class = "form-control", disabled = "disabled" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        @Html.LabelFor(m => m.MaritalStatus, new { @class = "col-md-4 control-label" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.MaritalStatus, new { @class = "form-control", disabled = "disabled" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+
+            <div class="card">
+                <div class="card-header py-2">
+                    <h5>Address Information</h5>
+                </div>
+                <div class="card-body">
+                    <div class="form-group row">
+                        @Html.LabelFor(m => m.currentlyLivingIn, new { @class = "col-md-4 control-label" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.currentlyLivingIn, new { @class = "form-control", disabled = "disabled" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        @Html.LabelFor(m => m.AadharCard, new { @class = "col-md-4 control-label" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.AadharCard, new { @class = "form-control", disabled = "disabled" })
+
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        @Html.LabelFor(m => m.Address, new { @class = "col-md-4 control-label" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.Address, new { @class = "form-control", disabled = "disabled" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        @Html.LabelFor(m => m.pincode, new { @class = "col-md-4 control-label" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.pincode, new { @class = "form-control", disabled = "disabled" })
+                        </div>
+                    </div>
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-top:20px">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header py-2">
+                    <h5>Employment Details</h5>
+                </div>
+                <div class="card-body">
+                    <div class="form-group row">
+                        @Html.LabelFor(m => m.PanCard, new { @class = "col-md-4 control-label" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.PanCard, new { @class = "form-control", disabled = "disabled" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        @Html.LabelFor(m => m.EmploymentStatus, new { @class = "col-md-4 control-label" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.EmploymentStatus, new { @class = "form-control", disabled = "disabled" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        @Html.LabelFor(m => m.GrossAnnualIncome, new { @class = "col-md-4 control-label" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.GrossAnnualIncome, new { @class = "form-control", disabled = "disabled" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        @Html.LabelFor(m => m.GrossMonthlyIncome, new { @class = "col-md-4 control-label" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.GrossMonthlyIncome, new { @class = "form-control", disabled = "disabled" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        @Html.LabelFor(m => m.CompanyName, new { @class = "col-md-4 control-label" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.CompanyName, new { @class = "form-control", disabled = "disabled" })
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        @Html.LabelFor(m => m.AlreadyLoan, new { @class = "col-md-4 control-label" })
+                        <div class="col-md-8">
+                            @if (Model.AlreadyLoan == true)
+                            {
+                                <label>Yes</label>
+                            }
+                            else
+                            {
+                                <label>No</label>
+                            }
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        @Html.LabelFor(m => m.currenStatus, new { @class = "col-md-4 control-label" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.currenStatus, new { @class = "form-control", disabled = "disabled" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row" style="margin-top:20px">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header py-2">
+                    <h5>Team Member Assigned</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>Assigned Team Lead</th>
+                                    <th>Assigned Member</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    @if (ViewBag.leadmember == null)
+                                    {
+                                        <td>--No Team Lead Assigned--</td>
+                                        <td>--No Member Assigned--</td>
+                                    }
+
+                                    else if (ViewBag.leadmember.MemberDetail == null)
+                                    {
+                                        <td>@ViewBag.leadmember.ProjectLeadDetail.FullName</td>
+                                        <td>--No Member Assigned--</td>
+
+                                    }
+
+                                    else
+                                    {
+                                        <td>@ViewBag.leadmember.ProjectLeadDetail.FullName</td>
+                                        <td> @ViewBag.leadmember.MemberDetail.FullName </td>
+                                    }
+
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

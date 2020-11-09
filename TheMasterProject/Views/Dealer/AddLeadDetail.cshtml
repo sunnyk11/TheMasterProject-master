@@ -1,0 +1,101 @@
+﻿@model TheMasterProject.ViewModels.NewBuyerViewModel
+
+@{
+    ViewBag.Title = "AddLeadDetail";
+    Layout = "~/Views/Shared/_SBAdminDealer.cshtml";
+}
+
+@if (ViewBag.Message != null)
+{
+    <div class="alert alert-danger" role="alert">
+        <h4 class="alert-heading">Sorry!</h4>
+        <p>@ViewBag.Message</p>
+        
+    </div>
+}
+
+@using (Html.BeginForm("AddLeadDetail", "Dealer", FormMethod.Post, new { enctype = "multipart/form-data", @class = "user" }))
+{
+    @Html.AntiForgeryToken()
+
+        <div>
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card mb-4">
+                        <div class="card-header" style="background-color:#4a72b9;color:white">
+                            Personal Information
+                        </div>
+                        <div class="card-body">
+                            <div class="row">
+
+                                @Html.LabelFor(m => m.Title, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                                <div class="col-md-10">
+                                    @Html.DropDownListFor(model => model.Title, new List<SelectListItem> {
+                                            new SelectListItem{Text = "Mr" , Value = "Mr" },
+                                            new SelectListItem{Text = "Mrs" , Value = "Mrs"}
+                                    }, new { @class = "form-control", @required = "required" })
+
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-10">
+                                    @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger", @style = "font-size:13px" })
+
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top:20px">
+
+                                @Html.LabelFor(m => m.BuyerName, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                                <div class="col-md-4">
+                                    @Html.TextBoxFor(model => model.BuyerName, new { @class = "form-control", @required = "required" })
+
+                                </div>
+                                @Html.LabelFor(m => m.MobileNo, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                                <div class="col-md-4">
+                                    @Html.TextBoxFor(model => model.MobileNo, new { @class = "form-control", @required = "required" })
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2"></div>
+                                <div class="col-md-4">
+                                    @Html.ValidationMessageFor(model => model.BuyerName, "", new { @class = "text-danger", @style = "font-size:13px" })
+                                </div>
+                                <div class="col-md-2">
+                                </div>
+                                <div class="col-md-4">
+                                    @Html.ValidationMessageFor(model => model.MobileNo, "", new { @class = "text-danger", @style = "font-size:13px" })
+
+                                </div>
+                            </div>
+                            <div class="row" style="margin-top:20px">
+                                @Html.LabelFor(m => m.PanCard, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                                <div class="col-md-4">
+                                    @Html.TextBoxFor(model => model.PanCard, new { @class = "form-control" })
+                                </div>
+                                @Html.LabelFor(m => m.AadharCard, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                                <div class="col-md-4">
+                                    @Html.TextBoxFor(model => model.AadharCard, new { @class = "form-control" })
+                                </div>
+
+                            </div>
+                        </div>
+                        <div class="card-footer">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <input type="submit" value="Submit Details" class="btn btn-success" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+}

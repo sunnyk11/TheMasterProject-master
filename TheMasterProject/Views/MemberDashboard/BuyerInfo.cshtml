@@ -1,0 +1,177 @@
+﻿@model TheMasterProject.Models.Buyer_Detail
+
+@using (Html.BeginForm("UpdateDetails", "MemberDashboard", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    @Html.AntiForgeryToken()
+<div class="row">
+    <div class="col-md-6">
+        @Html.HiddenFor(model=>model.BuyerId)
+        @Html.HiddenFor(model=>model.ProjectLeadAssigned)
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h4>Personal Information</h4>
+            </div>
+            <div class="panel-body">
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.BuyerName, new { @class = "col-md-4 control-label" })
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(m => m.BuyerName, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.BuyerName, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.AadharCard, new { @class = "col-md-4 control-label" })
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(m => m.AadharCard, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.AadharCard, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Gender, new { @class = "col-md-4 control-label" })
+                    <div class="col-md-8">
+                        @Html.DropDownListFor(m => m.Gender, new List<SelectListItem> {
+                       new SelectListItem { Text="Male",Value="M" },
+                       new SelectListItem { Text="Female",Value="F" }
+                   }, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Gender, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.MaritalStatus, new { @class = "col-md-4 control-label" })
+                    <div class="col-md-8">
+                        @Html.DropDownListFor(m => m.MaritalStatus, new List<SelectListItem> {
+                       new SelectListItem { Text="Married",Value="Married" },
+                       new SelectListItem { Text="UnMarried",Value="UnMarried" }
+                   }, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.MaritalStatus, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <h4>Address Information</h4>
+            </div>
+            <div class="panel-body">
+
+                <div class="form-group">
+                    @Html.LabelFor(m => m.currentlyLivingIn, new { @class = "col-md-4 control-label" })
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(m => m.currentlyLivingIn, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.currentlyLivingIn, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.MobileNo, new { @class = "col-md-4 control-label" })
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(m => m.MobileNo, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.MobileNo, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.Address, new { @class = "col-md-4 control-label" })
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(m => m.Address, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.Address, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(m => m.pincode, new { @class = "col-md-4 control-label" })
+                    <div class="col-md-8">
+                        @Html.TextBoxFor(m => m.pincode, new { @class = "form-control" })
+                        @Html.ValidationMessageFor(m => m.pincode, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-primary">
+                <div class="panel-heading">
+                    <h4>Employment Details</h4>
+                </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.PanCard, new { @class = "col-md-4 control-label" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.PanCard, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.PanCard, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.EmploymentStatus, new { @class = "col-md-4 control-label" })
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(m => m.EmploymentStatus, new List<SelectListItem> {
+                      new SelectListItem { Text="Self Business",Value="Self Business" },
+                      new SelectListItem { Text="Contractual",Value="Contractual" },
+                      new SelectListItem { Text="Contractual",Value="Permanent" },
+                  }, new { @class = "form-control" })
+
+                            @Html.ValidationMessageFor(m => m.EmploymentStatus, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.GrossAnnualIncome, new { @class = "col-md-4 control-label" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.GrossAnnualIncome, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.GrossAnnualIncome, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.GrossMonthlyIncome, new { @class = "col-md-4 control-label" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.GrossMonthlyIncome, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.GrossMonthlyIncome, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.CompanyName, new { @class = "col-md-4 control-label" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.CompanyName, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.CompanyName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.AlreadyLoan, new { @class = "col-md-4 control-label" })
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(m => m.AlreadyLoan, new List<SelectListItem> {
+                      new SelectListItem { Text="Yes",Value="True" },
+                      new SelectListItem { Text="No",Value="False" },
+
+                  }, new { @class = "form-control" })
+
+                            @Html.ValidationMessageFor(m => m.AlreadyLoan, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.currenStatus, new { @class = "col-md-4 control-label" })
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(m => m.currenStatus, new List<SelectListItem> {
+                      new SelectListItem { Text="New",Value="New" },
+                      new SelectListItem { Text="Pending",Value="Pending" },
+                      new SelectListItem { Text="Completed",Value="Completed" },
+                      new SelectListItem { Text="Under Process",Value="Under Process" },
+
+                  }, new { @class = "form-control" })
+
+                            @Html.ValidationMessageFor(m => m.currenStatus, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-4"></div>
+
+        <div class="col-md-4"><input type="submit" class="btn btn-primary" value="Update Information" style="margin-left:0;margin-right:0" /></div>  
+    </div>
+}

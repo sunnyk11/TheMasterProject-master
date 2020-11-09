@@ -1,0 +1,303 @@
+﻿@model TheMasterProject.Models.BuyerDetailViewModel
+@{
+    ViewBag.Title = "TestLead";
+    Layout = "~/Views/Shared/_SBAdminDealer.cshtml";
+}
+
+<nav>
+    <div class="nav nav-tabs" id="nav-tab" role="tablist">
+        <a class="nav-item nav-link active" id="nav-add-info" data-toggle="tab" href="#nav-add-infoDiv" role="tab" aria-controls="nav-home" aria-selected="true">Fill Details</a>
+        <a class="nav-item nav-link" id="nav-fileupload" data-toggle="tab" href="#nav-fileuploadDiv" role="tab" aria-controls="nav-profile" aria-selected="false">Upload File</a>
+    </div>
+</nav>
+<div class="tab-content" id="nav-tabContent">
+    <div class="tab-pane fade show active" id="nav-add-infoDiv" role="tabpanel" aria-labelledby="nav-fileuploadDiv">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card mb-4">
+                    <div class="card-header" style="background-color:#4a72b9;color:white">
+                        Personal Information
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+
+                            @Html.LabelFor(m => m.Title, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                            <div class="col-md-10">
+                                @Html.DropDownListFor(model => model.Title, new List<SelectListItem> {
+                                        new SelectListItem{Text = "Mr" , Value = "Mr" },
+                                        new SelectListItem{Text = "Mrs" , Value = "Mrs"}
+                                }, new { @class = "form-control", @required = "required" })
+
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-10">
+                                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger", @style = "font-size:13px" })
+
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top:20px">
+
+                            @Html.LabelFor(m => m.BuyerName, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                            <div class="col-md-2">
+                                @Html.TextBoxFor(model => model.BuyerName, new { @class = "form-control", @required = "required" })
+
+                            </div>
+
+                            @Html.LabelFor(m => m.BuyerMiddleName, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                            <div class="col-md-2">
+                                @Html.TextBoxFor(model => model.BuyerMiddleName, new { @class = "form-control" })
+                            </div>
+
+                            @Html.LabelFor(m => m.BuyerLastName, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                            <div class="col-md-2">
+                                @Html.TextBoxFor(model => model.BuyerLastName, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-2">
+                                @Html.ValidationMessageFor(model => model.BuyerName, "", new { @class = "text-danger", @style = "font-size:13px" })
+                            </div>
+
+                        </div>
+                        <div class="row" style="margin-top:20px">
+
+                            @Html.LabelFor(m => m.MobileNo, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                            <div class="col-md-4">
+                                @Html.TextBoxFor(model => model.MobileNo, new { @class = "form-control", @required = "required" })
+                            </div>
+
+                            @Html.LabelFor(m => m.LoanAmount, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+                            <div class="col-md-4">
+                                @Html.TextBoxFor(model => model.LoanAmount, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2">
+                            </div>
+                            <div class="col-md-4">
+                                @Html.ValidationMessageFor(model => model.MobileNo, "", new { @class = "text-danger", @style = "font-size:13px" })
+
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top:20px">
+                                @Html.LabelFor(m => m.City, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                                <div class="col-md-10">
+                                    @Html.DropDownListFor(model => model.City, ViewBag.CityList as SelectList, "-Select-", new { @class = "form-control" })
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-2">
+                                </div>
+                                <div class="col-md-10">
+                                    @Html.ValidationMessageFor(model => model.MobileNo, "", new { @class = "text-danger", @style = "font-size:13px" })
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card mb-4">
+                    <div class="card-header" style="background-color:#4a72b9;color:white">
+                        Other Information
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            @Html.LabelFor(m => m.Email, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                            <div class="col-md-4">
+                                @Html.TextBoxFor(model => model.Email, new { @class = "form-control" })
+                            </div>
+                            @Html.LabelFor(m => m.dob, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                            <div class="col-md-4">
+                                @Html.TextBoxFor(model => model.dob, new { @class = "form-control", id = "dateofBirth", @readonly = "true" })
+
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-4">
+                            </div>
+                            <div class="col-md-2"></div>
+                            <div class="col-md-4">
+                                @Html.ValidationMessageFor(model => model.dob, "", new { @class = "text-danger", @style = "font-size:13px" })
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top:20px">
+                            @Html.LabelFor(m => m.FatherFirstName, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                            <div class="col-md-2">
+                                @Html.TextBoxFor(model => model.FatherFirstName, new { @class = "form-control" })
+                            </div>
+                            @Html.LabelFor(m => m.FatherMiddleName, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                            <div class="col-md-2">
+                                @Html.TextBoxFor(model => model.FatherMiddleName, new { @class = "form-control" })
+                            </div>
+                            @Html.LabelFor(m => m.FatherLastName, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                            <div class="col-md-2">
+                                @Html.TextBoxFor(model => model.FatherLastName, new { @class = "form-control" })
+                            </div>
+
+                        </div>
+                        <div class="row" style="margin-top:20px">
+                            @Html.LabelFor(m => m.MotherFirstName, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                            <div class="col-md-2">
+                                @Html.TextBoxFor(model => model.MotherFirstName, new { @class = "form-control" })
+                            </div>
+                            @Html.LabelFor(m => m.MotherMiddleName, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                            <div class="col-md-2">
+                                @Html.TextBoxFor(model => model.MotherMiddleName, new { @class = "form-control" })
+                            </div>
+                            @Html.LabelFor(m => m.MotherLastName, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                            <div class="col-md-2">
+                                @Html.TextBoxFor(model => model.MotherLastName, new { @class = "form-control" })
+                            </div>
+
+                        </div>
+                        <div class="row" style="margin-top:20px">
+                            @Html.LabelFor(m => m.PanCard, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                            <div class="col-md-4">
+                                @Html.TextBoxFor(model => model.PanCard, new { @class = "form-control" })
+                            </div>
+                            @Html.LabelFor(m => m.AadharCard, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                            <div class="col-md-4">
+                                @Html.TextBoxFor(model => model.AadharCard, new { @class = "form-control" })
+                            </div>
+
+                        </div>
+                        <div class="row" style="margin-top:20px">
+                            @Html.LabelFor(m => m.MaritalStatus, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                            <div class="col-md-10">
+                                @Html.DropDownListFor(model => model.MaritalStatus, new List<SelectListItem> {
+                               new SelectListItem {Text= "SINGLE" , Value = "SINGLE"},
+                               new SelectListItem {Text = "MARRIED" , Value = "MARRIED" }
+                               }, new { @class = "form-control" })
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card mb-4">
+                    <div class="card-header" style="background-color:#4a72b9;color:white">
+                        Current Residence Details
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            @Html.LabelFor(m => m.Ownership, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                            <div class="col-md-2">
+                                @Html.DropDownListFor(model => model.Ownership, new List<SelectListItem>
+                           {
+                               new SelectListItem{Text = "COMPANY PROVIDED", Value = "COMPANY PROVIDED"},
+                               new SelectListItem{Text = "SELF OWNED", Value = "SELF OWNED"},
+                               new SelectListItem{Text = "PARANTAL OWNED", Value = "PARANTAL OWNED"},
+                               new SelectListItem{Text = "RENTED - SINGLE", Value = "RENTED - SINGLE"},
+                               new SelectListItem{Text = "RENTED - SHARED", Value = "RENTED - SHARED"},
+                               new SelectListItem{Text = "RENTED WITH FAMILY", Value = "RENTED WITH FAMILY"},
+                               new SelectListItem{Text = "RELATIVE HOUSE", Value = "RELATIVE HOUSE"},
+                           }, new { @class = "form-control", @required = "required" })
+
+                            </div>
+                            @Html.LabelFor(m => m.LivingSince, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                            <div class="col-md-2">
+                                @Html.TextBoxFor(model => model.LivingSince, new { @class = "form-control", @readonly = "true", id = "livingsince", @required = "required" })
+
+                            </div>
+                            @Html.LabelFor(m => m.LivingInCitySince, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                            <div class="col-md-2">
+                                @Html.TextBoxFor(model => model.LivingInCitySince, new { @class = "form-control", @required = "required", id = "livingInCitysince", @readonly = "true" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-2">
+                                @Html.ValidationMessageFor(model => model.Ownership, "", new { @class = "text-danger", @style = "font-size:13px" })
+                            </div>
+
+                            <div class="col-md-2"></div>
+                            <div class="col-md-2">
+                                @Html.ValidationMessageFor(model => model.LivingSince, "", new { @class = "text-danger", @style = "font-size:13px" })
+                            </div>
+                            <div class="col-md-2"></div>
+                            <div class="col-md-2">
+                                @Html.ValidationMessageFor(model => model.LivingInCitySince, "", new { @class = "text-danger", @style = "font-size:13px" })
+                            </div>
+
+                        </div>
+                        <div class="row" style="margin-top:20px">
+                            @Html.LabelFor(m => m.Address, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(model => model.Address, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top:20px">
+                            @Html.LabelFor(m => m.Address2, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(model => model.Address2, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="row" style="margin-top:20px">
+                            @Html.LabelFor(m => m.State, new { @class = "col-md-2 control-label", @style = "margin:auto", id = "StateId" })
+
+                            <div class="col-md-2">
+                                @Html.DropDownListFor(model => model.State, ViewBag.StateList as SelectList, "-Select State-", new { @class = "form-control", @required = "required" })
+                            </div>
+                            @Html.LabelFor(m => m.City, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                            <div class="col-md-2">
+                                @Html.DropDownListFor(model => model.City, new SelectList(" "), "-Select City-", new { @class = "form-control", @required = "required" })
+
+                            </div>
+
+                            @Html.LabelFor(m => m.pincode, new { @class = "col-md-2 control-label", @style = "margin:auto" })
+
+                            <div class="col-md-2">
+                                @Html.TextBoxFor(model => model.pincode, new { @class = "form-control" })
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-2"></div>
+                            <div class="col-md-2">
+                                @Html.ValidationMessageFor(model => model.State, "", new { @class = "text-danger", @style = "font-size:13px" })
+                            </div>
+
+                            <div class="col-md-2"></div>
+                            <div class="col-md-2">
+                                @Html.ValidationMessageFor(model => model.City, "", new { @class = "text-danger", @style = "font-size:13px" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+</div>

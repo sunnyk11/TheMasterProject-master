@@ -1,0 +1,123 @@
+﻿@model IEnumerable<TheMasterProject.Models.ApplicationUser>
+@{
+    ViewBag.Title = "DealerDetail";
+    Layout = "~/Views/Shared/_SBAdminMaster.cshtml";
+}
+
+<div class="row" style="margin-top:30px">
+    <div class="col-md-12">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Manager Dealers</h6>
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-bordered" style="width:100%" id="UserDetails">
+                        <thead>
+                            <tr>
+                                <th>
+                                    S.No
+                                </th>
+
+                                <th>
+                                    Full Name
+                                </th>
+                                <th>
+                                    Mobile No.
+                                </th>
+                                <th>
+                                    Manager Assigned
+                                </th>
+                                <th>
+                                    Leads Created
+                                </th>
+                                <th>
+                                    Action
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model)
+                            {
+                            <tr>
+                                <td></td>
+                                <td>
+                                    @Html.DisplayFor(model => item.FullName)
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(model => item.MobileNo)
+                                </td>
+                                <td>
+                                @foreach (var manager in ViewBag.ManagerDetails)
+                                {
+                                    if (manager.DealerId == item.Id)
+                                    {
+                                        
+                                            @manager.ManagerName
+                                        
+                                    }
+                                }
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(model => item.LeadCreated)
+                                </td>
+                                <td>
+                                    <a href="#" onclick="AssignManagerToDealer('@item.Email')" class="btn btn-info">Assign Manager</a>
+                                    <button class="btn btn-danger">Approve Dealer</button>
+                                </td>
+                            </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" id="modalDialog">
+            <div class="modal-content" id="modalContent">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"></h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body" id="modalbodydiv"></div>
+
+            </div>
+        </div>
+    </div>
+    <link href="~/SB-Admin/vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    @section Scripts{
+        <script src="~/SB-Admin/vendor/datatables/jquery.dataTables.min.js"></script>
+        <script src="~/SB-Admin/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+        <!-- Page level custom scripts -->
+        <script src="~/SB-Admin/js/demo/datatables-demo.js"></script>
+        <script>
+            $(document).ready(function () {
+                $('#UserDetails').DataTable({
+                    "fnRowCallback": function (nRow, aData, iDisplayIndex) {
+                        $("td:first", nRow).html(iDisplayIndex + 1);
+                        return nRow;
+                    },
+                });
+            });
+
+            var AssignManagerToDealer = (dealerEmail) => {
+
+                $.ajax({
+                    type: "GET",
+                    url: "/ManageRelation/AssignManagerToDealer",
+                    data: { DealerEmail: dealerEmail },
+                    success: function (response) {
+                        $("#modalbodydiv").html(response);
+                        $("#exampleModalLabel").text("Assign Manager To Dealer");
+                        $("#myModal").modal("show");
+                    },
+                });
+            };
+        </script>
+    }

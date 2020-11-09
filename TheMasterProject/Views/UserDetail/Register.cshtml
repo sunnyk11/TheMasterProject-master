@@ -1,0 +1,173 @@
+﻿@model TheMasterProject.Models.IdentityModel.UserRegistrationIdentityModel
+@{
+    ViewBag.Title = "Register";
+}
+
+@using (Html.BeginForm("Register", "UserDetail", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+    <div class="row" style="margin-top:30px">
+        <div class="col-md-12">
+            @Html.AntiForgeryToken()
+            <div class="panel panel-primary" style="width:650px;margin-left:auto;margin-right:auto">
+                <div class="panel-heading">
+                    <h4>User Registration</h4>
+                </div>
+                <div class="panel-body">
+                    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.FirstName, new { @class = "col-md-4 control-label" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.FirstName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.LastName, new { @class = "col-md-4 control-label" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.LastName, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.LastName, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.DateOfBirth, new { @class = "col-md-4 control-label" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.DateOfBirth, new { @class = "form-control", @readonly = "readonly" })
+                            @Html.ValidationMessageFor(m => m.DateOfBirth, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.Gender, new { @class = "col-md-4 control-label" })
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(m => m.Gender,new List<SelectListItem> {
+                           new SelectListItem { Text="Male",Value="M" },
+                           new SelectListItem { Text="Female",Value="F" }
+                       }, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Gender, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.CurrentlyLivingIn, new { @class = "col-md-4 control-label" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.CurrentlyLivingIn, "", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.CurrentlyLivingIn, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.MobileNo, new { @class = "col-md-4 control-label" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.MobileNo, "", new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.MobileNo, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.MaritalStatus, new { @class = "col-md-4 control-label" })
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(m => m.MaritalStatus,new List<SelectListItem> {
+                           new SelectListItem { Text="Married",Value="M" },
+                           new SelectListItem { Text="Unmarried",Value="U" }
+                       },new {@class="form-control" })
+                            @Html.ValidationMessageFor(m => m.MaritalStatus, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.AadharCard, new { @class = "col-md-4 control-label" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.AadharCard, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.AadharCard, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.pincode, new { @class = "col-md-4 control-label" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.pincode, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.pincode, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.UserType, new { @class = "col-md-4 control-label" })
+                        <div class="col-md-8">
+                            @Html.DropDownListFor(m=>m.UserType,new List<SelectListItem> {
+                           new SelectListItem{Text="Project Lead",Value="1"},
+                           new SelectListItem{Text="Team Member", Value="0"}
+                       }, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.UserType, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.EmailId, new { @class = "col-md-4 control-label" })
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(m => m.EmailId, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.EmailId, "", new { @class = "text-danger" })
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-offset-4 col-md-8">
+                            <input type="submit" id="btnsubmit" value="Submit Details" class="btn btn-primary" />
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+<link href="~/Content/sweetalert/sweet-alert.css" rel="stylesheet" />
+
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+@if (ViewBag.Message != null)
+{
+    <script>
+        swal({
+            title: "Success!",
+            text: "User Registered Successfully!",
+            icon: "success",
+        });
+    </script>
+}
+
+<link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+<style type="text/css">
+    .swal-footer {
+        text-align: center;
+    }
+</style>
+@section Scripts{
+    <script src="~/Scripts/moment.min.js"></script>
+
+
+    <script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+
+    <script type="text/javascript">
+
+        $(function () {
+            $.validator.methods.date = function (value, element) {
+                if ($.browser.webkit) {
+
+                    //ES - Chrome does not use the locale when new Date objects instantiated:
+                    var d = new Date();
+
+                    return this.optional(element) || !/Invalid|NaN/.test(new Date(d.toLocaleDateString(value)));
+                }
+                else {
+
+                    return this.optional(element) || !/Invalid|NaN/.test(new Date(value));
+                }
+            };
+        });
+        $(function () {
+            $('#DateOfBirth').datetimepicker({
+                format: 'dd/mm/yy',
+                ignoreReadonly: true
+            });
+
+        });
+
+
+
+    </script>
+}
+

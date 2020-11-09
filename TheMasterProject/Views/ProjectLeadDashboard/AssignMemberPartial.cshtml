@@ -1,0 +1,32 @@
+﻿@model TheMasterProject.Models.BuyerRelationProjectLead
+
+
+
+@using (Html.BeginForm("AssignMemberToLead", "ProjectLeadDashboard", FormMethod.Post))
+{
+    @Html.HiddenFor(model=>model.BuyerId)
+    @Html.HiddenFor(model=>model.ProjectLeadId)
+    @Html.HiddenFor(model=>model.Id)
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-3"><h4>Assign/Update</h4></div>
+            <div class="col-md-5">
+                @Html.DropDownListFor(model => model.MemberId, (IEnumerable<SelectListItem>)ViewBag.userlist, new { @class = "form-control" })
+            </div>
+            <div class="col-md-4"><h4>To Current Lead</h4></div>
+
+
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="col-md-3"></div>
+            <div class="col-md-5"></div>
+            <div class="col-md-4">
+                <input type="submit" class="btn btn-primary" value="Assign Member" />
+            </div>
+        </div>
+    </div>
+
+}
+

@@ -1,0 +1,447 @@
+﻿@model TheMasterProject.Models.BuyerDocumentUploadViewModel
+@{
+    ViewBag.Title = "UpdateFileForBuyer";
+    Layout = "~/Views/Shared/_SBMember.cshtml";
+    var counter = 0;
+}
+
+@using (Html.BeginForm("UpdateFileDetails", "Member", FormMethod.Post, new { enctype = "multipart/form-data", @class = "user" }))
+{
+    @Html.AntiForgeryToken()
+    @Html.HiddenFor(model => model.BuyerId)
+    @Html.HiddenFor(model => model.AddressProofDetailId)
+    @Html.HiddenFor(model => model.ApplicationFormDetailId)
+    @Html.HiddenFor(model => model.IncomeProofDetailId)
+    @Html.HiddenFor(model => model.IdentityProofDetailId)
+    @Html.HiddenFor(model => model.BankStatementDetailId)
+    @Html.HiddenFor(model => model.ProfileDocumentDetailId)
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card mb-4">
+                <div class="card-header" style="background-color:#4a72b9;color:white">
+                    Address Proof
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            @Html.CheckBoxFor(model => model.PassportCopy)
+                            @Html.Label("PASSPORT COPY")
+                        </div>
+                        <div class="col-md-4">
+                            @Html.CheckBoxFor(model => model.DrivingLicenceWithDob)
+                            @Html.Label("PHOTO DRIVING LICENCE WITH DOB")
+                        </div>
+                        <div class="col-md-4">
+                            @Html.CheckBoxFor(model => model.VotersId)
+                            @Html.Label("VOTERS ID")
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            @Html.CheckBoxFor(model => model.ElectricityBill)
+                            @Html.Label("ELECTRICITY BILL")
+                        </div>
+                        <div class="col-md-4">
+                            @Html.CheckBoxFor(model => model.TelephoneBill)
+                            @Html.Label("TELEPHONE BILL")
+                        </div>
+                        <div class="col-md-4">
+                            @Html.CheckBoxFor(model => model.LeaveLicenceAggrCopy)
+                            @Html.Label("LEAVE & LICENCE AGGRREMENT COPY")
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            @Html.CheckBoxFor(model => model.CompanyAccoLetter)
+                            @Html.Label("COMPANY ACCO LETTER CAT A & CAT B")
+                        </div>
+                        <div class="col-md-4">
+                            @Html.CheckBoxFor(model => model.OtherBankStatmnt)
+                            @Html.Label("OTHER BANK STATEMENT")
+                        </div>
+                        <div class="col-md-4">
+                            @Html.CheckBoxFor(model => model.TelephoneProof)
+                            @Html.Label("TELEPHONE / MOBILE PROOF")
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            @Html.CheckBoxFor(model => model.AadharCardCopy)
+                            @Html.Label("AADHAR CARD")
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(model => model.addressProof, new { @type = "file", onchange = "checkFileCount(this,'addressproof')", @multiple = "multiple" })
+                        </div>
+                    </div>
+
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        @foreach (var item in ViewBag.docUploaded)
+                        {
+                            if (item.FileType == 1)
+                            {
+
+                                <div class="col-md-2" id="divaddressproof-@counter">
+
+                                    <a href="~/Content/Files/@item.FileName" target="_blank">
+                                        <i class=" fa fa-2x fa-file-alt" style="color:#4e9e97">
+                                            <h4 style="font-size:14px"> @item.FileName</h4>
+                                        </i>
+
+                                    </a>
+                                    <a href="javascript:void(0);" onclick="DeleteFile(@item.Id,'#divaddressproof-@counter','addressproof')"><span class="fa fa-trash" id="DeleteDocument"></span></a>
+                                </div>
+                                {
+                                    counter++;
+                                }
+                            }
+                        }
+                        @*<a href="~/Content/Files/@Model.AddressProofFilePath" target="_blank">View Uploaded File For Address Proof</a>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card mb-4">
+                <div class="card-header" style="background-color:#4a72b9;color:white">
+                    Application Form <label style="color:red">(Only For HDFC Bank)</label>
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            @Html.CheckBoxFor(model => model.ApplicationFormImaging)
+                            @Html.Label("APPLICATION FORM - IMAGING")
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            @Html.TextBoxFor(model => model.applicationForm, new { @type = "file", @multiple = "multiple" , onchange = "checkFileCount(this,'applicationform')" })
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        @foreach (var item in ViewBag.docUploaded)
+                        {
+                            if (item.FileType == 2)
+                            {
+                                <div class="col-md-2" id="divonlyhdfcbank-@counter">
+                                    <a href="~/Content/Files/@item.FileName" target="_blank">
+                                        <i class=" fa fa-2x fa-file-alt" style="color:#4e9e97">
+                                            <h4 style="font-size:14px"> @item.FileName</h4>
+                                        </i>
+
+                                    </a>
+                                    <a href="javascript:void(0);" onclick="DeleteFile(@item.Id,'#divonlyhdfcbank-@counter','applicationform')"><span class="fa fa-trash" id="DeleteDocument"></span></a>
+                                </div>
+                                {
+                                    counter++;
+                                }
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card mb-4">
+                <div class="card-header" style="background-color:#4a72b9;color:white">
+                    Income Proof
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            @Html.CheckBoxFor(model => model.Form16)
+                            @Html.Label("FORM 16")
+                        </div>
+                        <div class="col-md-4">
+                            @Html.CheckBoxFor(model => model.AppointmentLetter)
+                            @Html.Label("APPOINTMENT LETTER")
+                        </div>
+                        <div class="col-md-4">
+                            @Html.CheckBoxFor(model => model.SalarySlip)
+                            @Html.Label("SALARY SLIP - LATEST 3 MONTHS")
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            @Html.CheckBoxFor(model => model.Itr)
+                            @Html.Label("ITR")
+                        </div>
+                        <div class="col-md-4">
+                            @Html.CheckBoxFor(model => model.GstCertification)
+                            @Html.Label("GST CERTIFICATION")
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(model => model.incomeProof, new { @type = "file", @multiple = "multiple", onchange = "checkFileCount(this,'incomeproof')" })
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        @foreach (var item in ViewBag.docUploaded)
+                        {
+                            if (item.FileType == 3)
+                            {
+                                <div class="col-md-2" id="divincomeproof-@counter">
+                                    <a href="~/Content/Files/@item.FileName" target="_blank">
+                                        <i class=" fa fa-2x fa-file-alt" style="color:#4e9e97">
+                                            <h4 style="font-size:14px"> @item.FileName</h4>
+                                        </i>
+
+                                    </a>
+                                    <a href="javascript:void(0);" onclick="DeleteFile(@item.Id,'#divincomeproof-@counter','incomeproof')"><span class="fa fa-trash" id="DeleteDocument"></span></a>
+                                </div>
+                                {
+                                    counter++;
+                                }
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card mb-4">
+                <div class="card-header" style="background-color:#4a72b9;color:white">
+                    Bank Statement
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            @Html.CheckBoxFor(model => model.BankStatementLatestSixMonths)
+                            @Html.Label("BANK STMT LATEST 6 MONTHS")
+                        </div>
+                        <div class="col-md-4">
+                            @Html.CheckBoxFor(model => model.BankStatmentThreeMonths)
+                            @Html.Label("BANK STMT LESS THAN 3 MONTHS")
+                        </div>
+                        <div class="col-md-4">
+                            @Html.CheckBoxFor(model => model.BankStatementYear)
+                            @Html.Label("BANK STMT 12 MONTHS")
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(model => model.bankStatement, new { @type = "file", @multiple = "multiple", onchange = "checkFileCount(this,'bankstatement')" })
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        @foreach (var item in ViewBag.docUploaded)
+                        {
+                            if (item.FileType == 4)
+                            {
+
+                                <div class="col-md-2" id="divbankstatement-@counter">
+                                    <a href="~/Content/Files/@item.FileName" target="_blank">
+                                        <i class=" fa fa-2x fa-file-alt" style="color:#4e9e97">
+                                            <h4 style="font-size:14px"> @item.FileName</h4>
+                                        </i>
+
+                                    </a>
+                                    <a href="javascript:void(0);" onclick="DeleteFile(@item.Id,'#divbankstatement-@counter','bankstatement')"><span class="fa fa-trash" id="DeleteDocument"></span></a>
+                                </div>
+                                {
+                                    counter++;
+                                }
+                            }
+                        }
+                        @*<a href="~/Content/Files/@Model.AddressProofFilePath" target="_blank">View Uploaded File For Address Proof</a>*@
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card mb-4">
+                <div class="card-header" style="background-color:#4a72b9;color:white">
+                    Identity Proof
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            @Html.CheckBoxFor(model => model.VotersIdCard)
+                            @Html.Label("VOTERS ID CARD")
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(model => model.identityProof, new { @type = "file", @multiple = "multiple", onchange = "checkFileCount(this,'identityproof')" })
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        @foreach (var item in ViewBag.docUploaded)
+                        {
+                            if (item.FileType == 5)
+                            {
+                                <div class="col-md-2" id="dividentityproof-@counter">
+                                    <a href="~/Content/Files/@item.FileName" target="_blank">
+                                        <i class=" fa fa-2x fa-file-alt" style="color:#4e9e97">
+                                            <h4 style="font-size:14px"> @item.FileName</h4>
+                                        </i>
+                                    </a>
+                                    <a href="javascript:void(0);" onclick="DeleteFile(@item.Id,'#dividentityproof-@counter','identityproof')"><span class="fa fa-trash" id="DeleteDocument"></span></a>
+                                </div>
+                                {
+                                    counter++;
+                                }
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card mb-4">
+                <div class="card-header" style="background-color:#4a72b9;color:white">
+                    Profile Documents
+                </div>
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-4">
+                            @Html.CheckBoxFor(model => model.PanCardId)
+                            @Html.Label("PAN CARD")
+                        </div>
+                        <div class="col-md-4">
+                            @Html.CheckBoxFor(model => model.ProfilePhoto)
+                            @Html.Label("PROFILE PHOTO")
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-8">
+                            @Html.TextBoxFor(model => model.profileDocumet, new { @type = "file", @multiple = "multiple", onchange = "checkFileCount(this,'profiledocuments')" })
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="row">
+                        @foreach (var item in ViewBag.docUploaded)
+                        {
+                            if (item.FileType == 6)
+                            {
+                                <div class="col-md-2" id="divprofiledocuments-@counter">
+                                    <a href="~/Content/Files/@item.FileName" target="_blank">
+                                        <i class=" fa fa-2x fa-file-alt" style="color:#4e9e97">
+                                            <h4 style="font-size:14px"> @item.FileName</h4>
+                                        </i>
+                                    </a>
+                                    <a href="javascript:void(0);" onclick="DeleteFile(@item.Id,'#divprofiledocuments-@counter','profiledocuments')"><span class="fa fa-trash" id="DeleteDocument"></span></a>
+                                </div>
+                                {
+                                    counter++;
+                                }
+                            }
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <input type="submit" value="Submit Details" formaction="UpdateFileDetails" formmethod="post" class="btn btn-success" />
+    </div>
+}
+
+@section Scripts{
+    
+    <script>
+        var totalfile = 0;
+       $(document).ready(function(){
+           totalfile = @ViewBag.AddressDetailFileCount;
+           totalApplicationFile = @ViewBag.ApplicationDetailFileCount;
+           totalIncomeProof = @ViewBag.IncomeProofDetailFileCount;
+           totalBankStatement = @ViewBag.BankStatementDetailFileCount;
+           totalIdentity = @ViewBag.IdentityProofDetailFileCount;
+           totalprofileDetails = @ViewBag.ProfileDetailFileCount;
+       });
+
+        var DeleteFile = (Id, divId, name) => {
+            var $ctrl = $(this);
+            if (confirm('Do you really want to delete this file?')) {
+                $.ajax({
+                    url: '@Url.Action("DeleteFile")',
+                    type: 'POST',
+                    data: { id: Id }
+                }).done(function (data){
+                    if (data.Result == "OK") {
+                        $(divId).remove();
+                        if (name == "addressproof") {
+                            totalfile -= 1;
+                        }
+                        if (name == "applicationform") {
+                            totalApplicationFile -= 1;
+                        }
+                        if (name == "incomeproof") {
+                            totalIncomeProof -= 1;
+                        }
+                        if (name == "bankstatement") {
+                            totalBankStatement -= 1;
+                        }
+                        if (name == "bankstatement") {
+                            totalIdentity -= 1;
+                        }
+                        if (name == "profiledocuments") {
+                            totalprofileDetails -= 1;
+                        }
+                        
+                    }
+                }).fail(function () {
+                    alert("Some Error Occured. Please Try again");
+                })
+            }
+
+        };
+
+
+        function checkFileCount(id, name) {
+            var total = 0;
+
+            if (name == 'addressproof') {
+                total = id.files.length + totalfile;
+            }
+            if (name == 'applicationform') {
+                total = id.files.length + totalApplicationFile;
+            }
+            if (name == 'incomeproof') {
+                total = id.files.length + totalIncomeProof;
+            }
+            if (name == 'bankstatement') {
+                total = id.files.length + totalBankStatement;
+            }
+            if (name == 'identityproof') {
+                total = id.files.length + totalIdentity;
+            }
+            if (name == 'profiledocuments') {
+                total = id.files.length + totalprofileDetails;
+            }
+
+            if (total > 5) {
+                alert("You can't Upload more than 5 Files");
+                document.getElementById("addressProof applicationForm incomeProof bankStatement identityProof profileDocumet").value = "";
+            }
+        }
+    </script>
+}
+
