@@ -193,33 +193,46 @@ namespace TheMasterProject.Controllers
         public async Task<ActionResult> DealerRegister(DealerRegisterViewModel model)
         {
             ApplicationDbContext db = new ApplicationDbContext();
-
-            var user = new ApplicationUser
+            if (ModelState.IsValid)
             {
-                FirstName = model.FirstName,
-                MobileNo = model.MobileNo,
-                UserName = model.Email,
-                Email = model.Email,
-                UserType = 5
-            };
-            var result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
+                
+                var dealers = db.Users.Where(x => x.MobileNo == model.MobileNo || x.Email == model.Email).FirstOrDefault();
+                if(dealers != null)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                    
-                    DealerToManagerRelation dm = new DealerToManagerRelation();
-                    dm.DealerId = user.Id;
-                    db.DealerToManagerRelations.Add(dm);
-                    db.SaveChanges();
-
-                    ModelState.Clear();
-                    ViewBag.Message = "Success";
-
-                    Session["UserId"] = user.Id.ToString();
-                    return RedirectToAction("Index", "Dealer");
+                    ModelState.AddModelError(string.Empty, "Please use some other email or phone number for registration");
+                    //model.ErrorMessage = "The Email or Phone No already Exist. Please use some other email or phone number";
+                   
                 }
-                AddErrors(result);
-            
+                else
+                {
+                    var user = new ApplicationUser
+                    {
+                        FirstName = model.FirstName,
+                        MobileNo = model.MobileNo,
+                        UserName = model.Email,
+                        Email = model.Email,
+                        UserType = 5
+                    };
+                    var result = await UserManager.CreateAsync(user, model.Password);
+                    if (result.Succeeded)
+                    {
+                        await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+
+                        DealerToManagerRelation dm = new DealerToManagerRelation();
+                        dm.DealerId = user.Id;
+                        db.DealerToManagerRelations.Add(dm);
+                        db.SaveChanges();
+
+                        ModelState.Clear();
+                        ViewBag.Message = "Success";
+
+                        Session["UserId"] = user.Id.ToString();
+                        return RedirectToAction("Index", "Dealer");
+                    }
+                    //AddErrors(result);
+                }
+                
+            }
             return View(model);
         }    //
             // POST: /Account/Register

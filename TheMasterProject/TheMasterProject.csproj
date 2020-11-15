@@ -445,6 +445,10 @@
     <Compile Include="Migrations\202010280540241_ForeignKeyAddedInDealerLeadRelation.Designer.cs">
       <DependentUpon>202010280540241_ForeignKeyAddedInDealerLeadRelation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202011150850002_identityUser-Mobile-DatatypeChange.cs" />
+    <Compile Include="Migrations\202011150850002_identityUser-Mobile-DatatypeChange.Designer.cs">
+      <DependentUpon>202011150850002_identityUser-Mobile-DatatypeChange.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AppointmentDetails.cs" />
@@ -513,6 +517,7 @@
     <Content Include="Content\Helper\warning.png" />
     <Content Include="Content\Helper\wickedpicker.min.css" />
     <Content Include="Content\Helper\wickedpicker.min.js" />
+    <Content Include="Content\Other Files\Housing1.jpg" />
     <Content Include="Content\sweetalert\bootstrap-sweetalert.png" />
     <Content Include="Content\sweetalert\docs.css" />
     <Content Include="Content\sweetalert\sweet-alert.css" />
@@ -2853,6 +2858,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202010280540241_ForeignKeyAddedInDealerLeadRelation.resx">
       <DependentUpon>202010280540241_ForeignKeyAddedInDealerLeadRelation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011150850002_identityUser-Mobile-DatatypeChange.resx">
+      <DependentUpon>202011150850002_identityUser-Mobile-DatatypeChange.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

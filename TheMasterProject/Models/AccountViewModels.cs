@@ -66,15 +66,21 @@ namespace TheMasterProject.Models
 
     public class DealerRegisterViewModel
     {
-        [Required]
+        [Required(ErrorMessage ="First Name is Required")]
         [Display(Name = "First Name")]
+        
         public string FirstName { get; set; }
 
-        [Required]
-        [Display(Name = "Phone No")]
-        public int MobileNo { get; set; }
+        
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
 
-        [Required]
+        [Required(ErrorMessage = "Phone No is Required")]
+        [Display(Name = "Phone No")]
+        [StringLength(10,MinimumLength = 10 , ErrorMessage ="Phone No should not be less than or greater than 10 digit")]
+        public string MobileNo { get; set; }
+
+        [Required(ErrorMessage = "Email is Required")]
         [EmailAddress]
         [Display(Name = "Email")]
         public string Email { get; set; }
@@ -89,6 +95,8 @@ namespace TheMasterProject.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        public string ErrorMessage { get; set; }
     }
     public class RegisterViewModel
     {
@@ -132,7 +140,7 @@ namespace TheMasterProject.Models
 
         [Required]
         [Display(Name = "Phone No")]
-        public int MobileNo { get; set; }
+        public string MobileNo { get; set; }
 
         public string LeadAssigned { get; set; }
         [Required]

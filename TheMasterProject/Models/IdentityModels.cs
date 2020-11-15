@@ -48,7 +48,7 @@ namespace TheMasterProject.Models
 
         
         [Display(Name = "Phone No")]
-        public int MobileNo { get; set; }
+        public string MobileNo { get; set; }
 
         public string LeadAssigned { get; set; }
         
