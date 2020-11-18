@@ -1,10 +1,17 @@
 ﻿@model TheMasterProject.Models.Buyer_Detail
+
+<style>
+    .modal-custom {
+        background-color: #48b5b0;
+        color: white;
+    }
+</style>
 <form class="user">
     <div class="row">
         <div class="col-md-6">
 
             <div class="card">
-                <div class="card-header py-2">
+                <div class="card-header py-2 modal-custom">
                     <h5>Personal Information</h5>
                 </div>
                 <div class="card-body">
@@ -41,7 +48,7 @@
         <div class="col-md-6">
 
             <div class="card">
-                <div class="card-header py-2">
+                <div class="card-header py-2 modal-custom">
                     <h5>Address Information</h5>
                 </div>
                 <div class="card-body">
@@ -79,7 +86,7 @@
     <div class="row" style="margin-top:20px">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header py-2">
+                <div class="card-header py-2 modal-custom">
                     <h5>Employment Details</h5>
                 </div>
                 <div class="card-body">
@@ -139,37 +146,62 @@
     <div class="row" style="margin-top:20px">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header py-2">
-                    <h5>Team Member Assigned</h5>
+                <div class="card-header py-2 modal-custom">
+                    <h5>Assigned Persons</h5>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-striped table-bordered" width="100%">
                             <thead>
                                 <tr>
-                                    <th>Assigned Team Lead</th>
+                                    <th>Assigned Manager</th>
+                                    <th>Assigned ARM</th>
                                     <th>Assigned Member</th>
+
                                 </tr>
                             </thead>
                             <tbody>
                                 <tr>
-                                    @if (ViewBag.leadmember == null)
+                                    @if (ViewBag.leadDetails == null)
                                     {
-                                        <td>--No Team Lead Assigned--</td>
-                                        <td>--No Member Assigned--</td>
+                                        <td>--No Manager Assigned--</td>
+                                        <td>--No ARM Assigned--</td>
+                                        <td>--NO Member Assigned--</td>
                                     }
 
-                                    else if (ViewBag.leadmember.MemberDetail == null)
+                                    @*else if (ViewBag.leadDetails.ManagerDetail != null)
                                     {
-                                        <td>@ViewBag.leadmember.ProjectLeadDetail.FullName</td>
+                                        <td>@ViewBag.leadDetails.ManagerDetail.FullName</td>
                                         <td>--No Member Assigned--</td>
 
-                                    }
+                                    }*@
 
                                     else
                                     {
-                                        <td>@ViewBag.leadmember.ProjectLeadDetail.FullName</td>
-                                        <td> @ViewBag.leadmember.MemberDetail.FullName </td>
+                                        if(ViewBag.leadDetails.ManagerDetail != null)
+                                        {
+                                            <td>@ViewBag.leadDetails.ManagerDetail.FullName</td>
+                                        }
+                                        else
+                                        {
+                                            <td>--No Manager Assigned--</td>
+                                        }
+                                        if(ViewBag.leadDetails.AMDetail != null)
+                                        {
+                                            <td>@ViewBag.leadDetails.AMDetail.FullName</td>
+                                        }
+                                        else
+                                        {
+                                            <td>--No ARM Assigned--</td>
+                                        }
+                                        if(ViewBag.leadDetails.MemberDetail != null)
+                                        {
+                                            <td> @ViewBag.leadDetails.MemberDetail.FullName </td>
+                                        }
+                                        else
+                                        {
+                                            <td>--No Member Assigned--</td>
+                                        }
                                     }
 
 

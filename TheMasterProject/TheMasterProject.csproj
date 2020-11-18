@@ -198,6 +198,7 @@
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\SweetController.cs" />
     <Compile Include="Controllers\UserDetailController.cs" />
+    <Compile Include="Enum\LeadStatus.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -448,6 +449,10 @@
     <Compile Include="Migrations\202011150850002_identityUser-Mobile-DatatypeChange.cs" />
     <Compile Include="Migrations\202011150850002_identityUser-Mobile-DatatypeChange.Designer.cs">
       <DependentUpon>202011150850002_identityUser-Mobile-DatatypeChange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011161600097_ApplicationUserDataTypeChange.cs" />
+    <Compile Include="Migrations\202011161600097_ApplicationUserDataTypeChange.Designer.cs">
+      <DependentUpon>202011161600097_ApplicationUserDataTypeChange.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -2861,6 +2866,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202011150850002_identityUser-Mobile-DatatypeChange.resx">
       <DependentUpon>202011150850002_identityUser-Mobile-DatatypeChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011161600097_ApplicationUserDataTypeChange.resx">
+      <DependentUpon>202011161600097_ApplicationUserDataTypeChange.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

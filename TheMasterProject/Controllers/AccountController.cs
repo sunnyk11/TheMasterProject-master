@@ -172,12 +172,8 @@ namespace TheMasterProject.Controllers
         // GET: /Account/Register
         public ActionResult Register()
         {
-            ApplicationDbContext db=new ApplicationDbContext();
-
-            RegisterViewModel obj = new RegisterViewModel();
-            obj.MemberList= db.Users.Where(x => x.UserType == 2).ToList();
             
-            return View(obj);
+            return View();
         }
 
         //Dealer Self Registeration
@@ -244,49 +240,60 @@ namespace TheMasterProject.Controllers
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
             ApplicationDbContext db = new ApplicationDbContext();
-            
-            var user = new ApplicationUser {
-                    FirstName=model.FirstName,
-                    LastName=model.LastName,
-                    Gender=model.Gender,
-                    CurrentlyLivingIn=model.CurrentlyLivingIn,
-                    pincode=model.pincode,
-                    LeadAssigned=model.LeadAssigned,
-                    AadharCard=model.AadharCard,
-                    DateOfBirth=model.DateOfBirth,
-                    MaritalStatus=model.MaritalStatus,
-                    UserType=model.UserType,
-                    MobileNo=model.MobileNo,
+
+            if (ModelState.IsValid)
+            {
+                var users = db.Users.Where(x => x.MobileNo == model.MobileNo || x.Email == model.Email || x.AadharCard == model.AadharCard).FirstOrDefault();
+                if(users != null)
+                {
+                    ModelState.AddModelError(string.Empty, "This user already exists in our database. Please use different details");
+                }
+
+                var user = new ApplicationUser
+                {
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    Gender = model.Gender,
+                    CurrentlyLivingIn = model.CurrentlyLivingIn,
+                    pincode = model.pincode,
+                    LeadAssigned = model.LeadAssigned,
+                    AadharCard = model.AadharCard,
+                    DateOfBirth = model.DateOfBirth,
+                    MaritalStatus = model.MaritalStatus,
+                    UserType = model.UserType,
+                    MobileNo = model.MobileNo,
                     UserName = model.Email,
                     Email = model.Email
-                    
+
                 };
-            try
-            {
-                var result = await UserManager.CreateAsync(user, model.Password);
-                if (result.Succeeded)
+                try
+                {
+                    var result = await UserManager.CreateAsync(user, model.Password);
+                    if (result.Succeeded)
+                    {
+
+                        //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                        if (user.UserType == 1)
+                        {
+                            ManagerToAmRelation lr = new ManagerToAmRelation();
+                            lr.ManagerId = user.Id;
+                            db.ManagerToAmRelations.Add(lr);
+                            db.SaveChanges();
+                        }
+
+                        ModelState.Clear();
+                        ViewBag.Message = "Success";
+                        return View();
+                        //return RedirectToAction("Register");
+                    }
+                    //AddErrors(result);
+                }
+                catch (Exception ex)
                 {
 
-                    //await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
-                    if (user.UserType == 1)
-                    {
-                        ManagerToAmRelation lr = new ManagerToAmRelation();
-                        lr.ManagerId = user.Id;
-                        db.ManagerToAmRelations.Add(lr);
-                        db.SaveChanges();
-                    }
-                   
-                    ModelState.Clear();
-                    ViewBag.Message = "Success";
-                    return View();
-                    //return RedirectToAction("Register");
                 }
-                AddErrors(result);
-            }
-            catch(Exception ex)
-            {
-
-            }
+            } 
+            
             return View(model);
         }
 

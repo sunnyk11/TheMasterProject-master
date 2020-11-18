@@ -13,7 +13,7 @@
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Leads</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">400</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">@ViewBag.TotalLeads</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-calendar fa-2x text-300" style="color:#4e73df"></i>
@@ -30,7 +30,7 @@
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Loan Sanctioned</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">₹ 215,000</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">₹ 0</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-dollar-sign fa-2x text-300" style="color:#1cc88a"></i>
@@ -49,7 +49,7 @@
                         <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Leads Completed</div>
                         <div class="row no-gutters align-items-center">
                             <div class="col-auto">
-                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">300</div>
+                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">@ViewBag.CompletedLeads</div>
                             </div>
 
                         </div>
@@ -66,8 +66,8 @@
             <div class="card-body">
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
-                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Pending Requests</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">100</div>
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Leads By Dealer</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">@ViewBag.DealerLeads</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-comments fa-2x" style="color:#f6c23e"></i>
@@ -111,7 +111,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (var item in Model)
+                    @foreach (var item in Model.Where(x => x.LeadCreatedBy == null))
                     {
                         <tr>
                             <td></td>
@@ -157,6 +157,90 @@
                                         <span class="text">Assign Manager</span>
                                     </a>
                                 </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">Leads Created By Dealer</h6>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-striped table-bordered" style="width:100%" id="LeadByDealer">
+                <thead>
+                    <tr>
+                        <th>
+                            S.No
+                        </th>
+
+                        <th>
+                            Lead Id
+                        </th>
+                        <th>
+                            Person Name
+                        </th>
+                        <th>
+                            Mobile No.
+                        </th>
+                        <th>
+                            Assigned To
+                        </th>
+                        <th>
+                            Current Status
+                        </th>
+                        <th>
+                            Action
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Where(c => c.LeadCreatedBy != null))
+                    {
+                        <tr>
+                            <td></td>
+                            <td>
+                                @item.BuyerId
+                            </td>
+                            <td>
+                                @item.BuyerName
+                            </td>
+                            <td>
+                                @item.MobileNo
+                            </td>
+                            @if (item.ManagerAssigned == null)
+                            {
+                                <td>
+                                    --No Project Lead--
+                                </td>
+                            }
+                            else
+                            {
+                                <td>
+                                    @item.ManagerDetail.FullName
+                                </td>
+                            }
+                            @if (item.currenStatus == null)
+                            {
+                                <td>--New Lead--</td>
+                            }
+                            else
+                            {
+                                <td>
+                                    @item.currenStatus
+                                </td>
+                            }
+                            <td>
+                                
+                                <a href="#" class="btn btn-primary btn-icon-split btn-sm" onclick="ViewDetails(@item.BuyerId)" style="margin-left:20px">
+                                    
+                                    <span class="text">View Details</span>
+                                </a>
+                            </td>
                         </tr>
                     }
                 </tbody>
@@ -212,7 +296,7 @@
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" id="modalDialog">
         <div class="modal-content" id="modalContent">
-            <div class="modal-header">
+            <div class="modal-header" style="background-color:#8d3fad;color:white">
                 <h5 class="modal-title" id="exampleModalLabel"></h5>
                 <button class="close" type="button" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">×</span>
@@ -271,6 +355,12 @@
         $(document).ready(function () {
 
             $('#LeadDetails').DataTable({
+                "fnRowCallback": function (nRow, aData, iDisplayIndex) {
+                    $("td:first", nRow).html(iDisplayIndex + 1);
+                    return nRow;
+                },
+            });
+            $('#LeadByDealer').DataTable({
                 "fnRowCallback": function (nRow, aData, iDisplayIndex) {
                     $("td:first", nRow).html(iDisplayIndex + 1);
                     return nRow;

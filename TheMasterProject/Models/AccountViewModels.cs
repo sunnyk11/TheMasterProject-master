@@ -100,12 +100,6 @@ namespace TheMasterProject.Models
     }
     public class RegisterViewModel
     {
-        [Display(Name = "Assign Members")]
-        public string[] AssignMember { get; set; }
-
-        public IEnumerable<ApplicationUser> MemberList { get; set; }
-
-
         [Required]
         [Display(Name = "First Name")]
         public string FirstName { get; set; }
@@ -132,14 +126,17 @@ namespace TheMasterProject.Models
 
         [Required]
         [Display(Name = "Aadhar Card")]
-        public int AadharCard { get; set; }
+        [StringLength(12, MinimumLength = 12, ErrorMessage = "Aadhar No not be less than or greater than 12 digit")]
+        public string AadharCard { get; set; }
 
         [Required]
         [Display(Name = "Pincode")]
-        public int pincode { get; set; }
+        [StringLength(6, MinimumLength = 6, ErrorMessage = "Please Enter A Valid Pincode")]
+        public string pincode { get; set; }
 
         [Required]
         [Display(Name = "Phone No")]
+        [StringLength(10, MinimumLength = 10, ErrorMessage = "Phone no can not be less than or greater than 10 digit")]
         public string MobileNo { get; set; }
 
         public string LeadAssigned { get; set; }
@@ -164,9 +161,6 @@ namespace TheMasterProject.Models
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
-
-
-        
     }
 
     public class ResetPasswordViewModel

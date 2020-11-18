@@ -24,9 +24,10 @@ namespace TheMasterProject.Controllers
         public ActionResult Index()
         {
             var userid = GetUserId();
-            var leadDeatils = db.BuyerRelation.Include("BuyerDetail").Where(x => x.MemberId == userid).ToList();
-
-            return View(leadDeatils);
+            var leadDetails = db.BuyerRelation.Include("BuyerDetail").Where(x => x.MemberId == userid).ToList();
+            ViewBag.TotalLeads = leadDetails.Count();
+            ViewBag.CompletedLeads = leadDetails.Where(x => x.BuyerDetail.currenStatus == Convert.ToString(TheMasterProject.Enum.LeadStatus.Completed)).Count();
+            return View(leadDetails);
         }
 
         public ActionResult UpdateDetails(int BuyerId)
