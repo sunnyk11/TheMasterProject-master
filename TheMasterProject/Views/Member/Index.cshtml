@@ -214,11 +214,12 @@
     <!-- Page level custom scripts -->
     <script src="~/SB-Admin/js/demo/datatables-demo.js"></script>
     <script>
-       
+
         var UpdateDetails = (buyerid) => {
             $.ajax({
                 type: "GET",
-                url: "/Member/UpdateDetails",
+                url: @Url.Action("UpdateDetails", "Member"),
+                //url: "/Member/UpdateDetails",
                 data: { BuyerId: buyerid },
                 success: function (response) {
                     $("#modalbodydiv").html(response);

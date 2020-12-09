@@ -176,6 +176,7 @@
         var UpdateDetails = (buyerid) => {
             $.ajax({
                 type: "GET",
+                url: @Url.Action("UpdateDetails", "Member"),
                 url: "/Member/UpdateDetails",
                 data: { BuyerId: buyerid },
                 success: function (response) {

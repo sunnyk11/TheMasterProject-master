@@ -237,7 +237,8 @@
 
             $.ajax({
                 type: "GET",
-                url: "/Manager/AssignAMToBuyer",
+                url: @Url.Action("AssignAMToBuyer", "Manager"),
+                //url: "/Manager/AssignAMToBuyer",
                 data: { BuyerId: buyerid },
                 success: function (response) {
                     $("#modalbodydiv").html(response);
@@ -252,7 +253,8 @@
         var ViewDetails = (buyerid) => {
             $.ajax({
                 type: "GET",
-                url: "/Manager/ViewLeadDetails",
+                url: @Url.Action("ViewLeadDetails", "Manager"),
+                //url: "/Manager/ViewLeadDetails",
                 data: { BuyerId: buyerid },
                 success: function (response) {
                     $("#modalbodydiv").html(response);

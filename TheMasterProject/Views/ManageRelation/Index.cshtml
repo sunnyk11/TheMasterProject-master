@@ -111,7 +111,7 @@
 
             $.ajax({
                 type: "GET",
-                url: "/ManageRelation/AssignAssistantManager",
+                url: @Url.Action("AssignAssistantManager", "ManageRelation"),
                 data: { managerId: managerId },
                 success: function (response) {
                     $("#modalbodydiv").html(response);
@@ -125,7 +125,8 @@
 
             $.ajax({
                 type: "GET",
-                url: "/ManageRelation/DeleteAssistantManager",
+                url: @Url.Action("DeleteAssistantManager", "ManageRelation"),
+                //url: "/ManageRelation/DeleteAssistantManager",
                 data: { managerId: managerId },
                 success: function (response) {
                     $("#modalbodydiv").html(response);
