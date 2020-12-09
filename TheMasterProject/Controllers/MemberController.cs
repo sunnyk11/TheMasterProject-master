@@ -92,8 +92,6 @@ namespace TheMasterProject.Controllers
                 Officepincode = buyerDetail.Officepincode,
                 LoanAmount = buyerDetail.LoanAmount,
                 Title = buyerDetail.Gender,
-                
-                
             };
             if(AppointmentDetails != null)
             {
@@ -202,7 +200,7 @@ namespace TheMasterProject.Controllers
                     BuyerDetails.Officepincode = bv.Officepincode;
                     BuyerDetails.LoanAmount = bv.LoanAmount;
                     BuyerDetails.Gender = bv.Title;
-
+                    BuyerDetails.currenStatus = bv.currenStatus;
                     // db.BuyerDetails.Attach(BuyerDetails);
                     Comments newcomment = new Comments();
                     var lastComment = db.Comments.Where(x => x.BuyerId == bv.BuyerId).OrderByDescending(x => x.CommentId).Take(1).Select(x => x.CommentDetails).FirstOrDefault();
@@ -600,6 +598,7 @@ namespace TheMasterProject.Controllers
             var comment = db.Comments.Where(x => x.BuyerId == buyerId).ToList();
             return View("openComment", comment);
         }
+
 
         public ActionResult ViewBuyerForAppointmentBooking()
         {

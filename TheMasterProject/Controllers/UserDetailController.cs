@@ -193,6 +193,7 @@ namespace TheMasterProject.Controllers
             if(alreadyBuyer == null)
             {
                 bd.BuyerName = BuyerName;
+                bd.LeadIncomingFrom = TheMasterProject.Enum.LeadComingFrom.Excel.ToString();
                 bd.MobileNo = MobileNo;
                 db.BuyerDetails.Add(bd);
                 val = 1;

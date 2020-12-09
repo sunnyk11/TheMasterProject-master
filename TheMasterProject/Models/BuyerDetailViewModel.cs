@@ -147,6 +147,8 @@ namespace TheMasterProject.Models
         [Required(ErrorMessage = "Please Select Title")]
         public string Title { get; set; }
 
+        
+
         //Address Proof
         public int AddressProofDetailId { get; set; }
 
@@ -236,13 +238,9 @@ namespace TheMasterProject.Models
         public HttpPostedFileBase[] profileDocumet { get; set; }
 
         //appointment Details
-        [Display(Name ="Appointmen Date & Time")]
-        [Required]
-        public string AppointmentDate{ get; set; }
-        [Required]
+        public string AppointmentDate { get; set; }
+        
         public string AppointmentTime { get; set; }
-
         public string AppointmentTimeFromDb { get; set; }
-
     }
 }

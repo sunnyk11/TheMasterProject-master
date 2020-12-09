@@ -82,12 +82,12 @@ namespace TheMasterProject.Controllers
                     foreach(var buyerDetail in buyerDetails)
                     {
                         buyerDetail.ManagerAssigned = model.LeadAssigned;
+                        buyerDetail.LeadIncomingFrom = TheMasterProject.Enum.LeadComingFrom.Dealer.ToString();
                         db.Entry(buyerDetail).Property(x => x.ManagerAssigned).IsModified = true;
                     }
 
                     foreach(var item in LeadByDealer)
                     {
-
                         foreach (var buyer in buyerRelation)
                         {
                             if(item.BuyerId == buyer.BuyerId)
@@ -100,7 +100,6 @@ namespace TheMasterProject.Controllers
                         item.AssignedManager = model.LeadAssigned;
                         db.Entry(item).Property(x => x.AssignedManager).IsModified = true;
                     }
-
 
                     //Below is used to assign manager to dealer to manager relations
                     dealer.ManagerId = model.LeadAssigned;
