@@ -1,6 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -47,6 +46,9 @@
   <ItemGroup>
     <Reference Include="LinqToExcel, Version=1.11.0.0, Culture=neutral, PublicKeyToken=9c8ea65a58f03f1f, processorArchitecture=MSIL">
       <HintPath>..\packages\LinqToExcel.1.11.0\lib\LinqToExcel.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=3.6.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Remotion, Version=1.13.52.2, Culture=neutral, PublicKeyToken=0669cf0452175907, processorArchitecture=MSIL">
@@ -175,9 +177,6 @@
     <Reference Include="Microsoft.AspNet.TelemetryCorrelation">
       <HintPath>..\packages\Microsoft.AspNet.TelemetryCorrelation.1.0.0\lib\net45\Microsoft.AspNet.TelemetryCorrelation.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
-      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\BundleConfig.cs" />
@@ -198,6 +197,8 @@
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\SweetController.cs" />
     <Compile Include="Controllers\UserDetailController.cs" />
+    <Compile Include="Enum\LeadComingFrom.cs" />
+    <Compile Include="Enum\LeadStatus.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -445,9 +446,22 @@
     <Compile Include="Migrations\202010280540241_ForeignKeyAddedInDealerLeadRelation.Designer.cs">
       <DependentUpon>202010280540241_ForeignKeyAddedInDealerLeadRelation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202011150850002_identityUser-Mobile-DatatypeChange.cs" />
+    <Compile Include="Migrations\202011150850002_identityUser-Mobile-DatatypeChange.Designer.cs">
+      <DependentUpon>202011150850002_identityUser-Mobile-DatatypeChange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202011161600097_ApplicationUserDataTypeChange.cs" />
+    <Compile Include="Migrations\202011161600097_ApplicationUserDataTypeChange.Designer.cs">
+      <DependentUpon>202011161600097_ApplicationUserDataTypeChange.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202012061337529_LeadIncomingColumnAdd.cs" />
+    <Compile Include="Migrations\202012061337529_LeadIncomingColumnAdd.Designer.cs">
+      <DependentUpon>202012061337529_LeadIncomingColumnAdd.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\AppointmentDetails.cs" />
+    <Compile Include="Models\AppointmentViewModel.cs" />
     <Compile Include="Models\AssistantManagerToMemberRelation.cs" />
     <Compile Include="Models\AssistantManagerToMemberViewModel.cs" />
     <Compile Include="Models\BuyerDetailViewModel.cs" />
@@ -513,6 +527,7 @@
     <Content Include="Content\Helper\warning.png" />
     <Content Include="Content\Helper\wickedpicker.min.css" />
     <Content Include="Content\Helper\wickedpicker.min.js" />
+    <Content Include="Content\Other Files\Housing1.jpg" />
     <Content Include="Content\sweetalert\bootstrap-sweetalert.png" />
     <Content Include="Content\sweetalert\docs.css" />
     <Content Include="Content\sweetalert\sweet-alert.css" />
@@ -2649,6 +2664,7 @@
     <Content Include="Views\Member\ViewBuyersForDocumentUpload.cshtml" />
     <Content Include="Views\Member\ViewBuyerForAppointmentBooking.cshtml" />
     <Content Include="Views\Dealer\ViewLeadDetailPartial.cshtml" />
+    <Content Include="Views\Member\ViewBuyersForAppointment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -2854,6 +2870,15 @@
     <EmbeddedResource Include="Migrations\202010280540241_ForeignKeyAddedInDealerLeadRelation.resx">
       <DependentUpon>202010280540241_ForeignKeyAddedInDealerLeadRelation.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011150850002_identityUser-Mobile-DatatypeChange.resx">
+      <DependentUpon>202011150850002_identityUser-Mobile-DatatypeChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202011161600097_ApplicationUserDataTypeChange.resx">
+      <DependentUpon>202011161600097_ApplicationUserDataTypeChange.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202012061337529_LeadIncomingColumnAdd.resx">
+      <DependentUpon>202012061337529_LeadIncomingColumnAdd.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
@@ -2883,11 +2908,12 @@
       </FlavorProperties>
     </VisualStudio>
   </ProjectExtensions>
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.3.6.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.targets'))" />
   </Target>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.

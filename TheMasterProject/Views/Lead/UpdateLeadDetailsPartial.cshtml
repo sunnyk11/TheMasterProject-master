@@ -970,7 +970,8 @@ else
         var openComment = (buyerid) => {
             $.ajax({
                 type: "GET",
-                url: "/Member/openComment",
+                url: @Url.Action("openComment", "Member"),
+                //url: "/Member/openComment",
                 data: { BuyerId: buyerid },
                 success: function (response) {
                     $("#modalbodydiv").html(response);

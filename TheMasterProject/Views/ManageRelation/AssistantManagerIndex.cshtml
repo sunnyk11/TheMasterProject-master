@@ -110,7 +110,8 @@
 
             $.ajax({
                 type: "GET",
-                url: "/ManageRelation/AssignTeamMember",
+                url: @Url.Action("AssignTeamMember", "ManageRelation"),
+                //url: "/ManageRelation/AssignTeamMember",
                 data: { assistantManagerEmail: assistantManagerEmail },
                 success: function (response) {
                     $("#modalbodydiv").html(response);
@@ -124,7 +125,8 @@
 
             $.ajax({
                 type: "GET",
-                url: "/ManageRelation/DeleteTeamMember",
+                url: @Url.Action("DeleteTeamMember", "ManageRelation"),
+                //url: "/ManageRelation/DeleteTeamMember",
                 data: { assistantManagerEmail: assistantManagerEmail },
                 success: function (response) {
                     $("#modalbodydiv").html(response);

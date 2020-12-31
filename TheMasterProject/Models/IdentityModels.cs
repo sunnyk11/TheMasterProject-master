@@ -14,7 +14,6 @@ namespace TheMasterProject.Models
     public class ApplicationUser : IdentityUser
     {
         
-        
         [Display(Name ="First Name")]
         public string FirstName { get; set; }
 
@@ -40,15 +39,15 @@ namespace TheMasterProject.Models
 
         
         [Display(Name = "Aadhar Card")]
-        public int AadharCard { get; set; }
+        public string AadharCard { get; set; }
 
         
         [Display(Name = "Pincode")]
-        public int pincode { get; set; }
+        public string pincode { get; set; }
 
         
         [Display(Name = "Phone No")]
-        public int MobileNo { get; set; }
+        public string MobileNo { get; set; }
 
         public string LeadAssigned { get; set; }
         

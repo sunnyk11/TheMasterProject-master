@@ -110,7 +110,8 @@
 
                 $.ajax({
                     type: "GET",
-                    url: "/ManageRelation/AssignManagerToDealer",
+                    url: @Url.Action("AssignManagerToDealer", "ManageRelation"),
+                    //url: "/ManageRelation/AssignManagerToDealer",
                     data: { DealerEmail: dealerEmail },
                     success: function (response) {
                         $("#modalbodydiv").html(response);

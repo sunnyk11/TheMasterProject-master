@@ -208,7 +208,8 @@
 
             $.ajax({
                 type: "GET",
-                url: "/MemberDashboard/UpdateDetails",
+                url: @Url.Action("UpdateDetails", "MemberDashboard"),
+                //url: "/MemberDashboard/UpdateDetails",
                 data: { BuyerId: id },
                 success: function (response) {
                     $("#modalbodydiv").html(response);
@@ -221,7 +222,8 @@
 
             $.ajax({
                 type: "GET",
-                url: "/MemberDashboard/ViewLeadDetails",
+                url: @Url.Action("ViewLeadDetails", "MemberDashboard"),
+                //url: "/MemberDashboard/ViewLeadDetails",
                 data: { BuyerId: buyerid },
                 success: function (response) {
                     $("#modalbodydiv").html(response);

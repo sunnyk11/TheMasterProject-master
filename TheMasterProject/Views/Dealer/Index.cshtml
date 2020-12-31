@@ -137,14 +137,15 @@
 
             $.ajax({
                 type: "GET",
-                url: "/Dealer/ViewDetails",
+                url: @Url.Action("ViewDetails", "Dealer"),
+                //url: "/Dealer/ViewDetails",
                 data: { BuyerId: buyerid },
                 success: function (response) {
                     $("#modalbodydiv").html(response);
                     $("#exampleModalLabel").text("Lead Details");
                     $("#myModal").modal("show");
                     $('#modalDialog').addClass('modal-dialog modal-lg');
-                    
+
                 }
             });
         };

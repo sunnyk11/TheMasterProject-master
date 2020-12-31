@@ -13,7 +13,7 @@
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Leads</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">400</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">@ViewBag.TotalLeads</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-calendar fa-2x text-300" style="color:#4e73df"></i>
@@ -30,7 +30,7 @@
                 <div class="row no-gutters align-items-center">
                     <div class="col mr-2">
                         <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Loan Sanctioned</div>
-                        <div class="h5 mb-0 font-weight-bold text-gray-800">₹ 215,000</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">₹ 0</div>
                     </div>
                     <div class="col-auto">
                         <i class="fas fa-dollar-sign fa-2x text-300" style="color:#1cc88a"></i>
@@ -49,7 +49,7 @@
                         <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Leads Completed</div>
                         <div class="row no-gutters align-items-center">
                             <div class="col-auto">
-                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">300</div>
+                                <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">@ViewBag.CompletedLeads</div>
                             </div>
 
                         </div>
@@ -236,7 +236,8 @@
 
             $.ajax({
                 type: "GET",
-                url: "/AssistantManager/AssignMemberToBuyer",
+                url: @Url.Action("AssignMemberToBuyer", "AssistantManager"),
+                //url: "/AssistantManager/AssignMemberToBuyer",
                 data: { BuyerId: buyerid },
                 success: function (response) {
                     $("#modalbodydiv").html(response);
@@ -251,7 +252,8 @@
         var ViewDetails = (buyerid) => {
             $.ajax({
                 type: "GET",
-                url: "/AssistantManager/ViewLeadDetails",
+                url: @Url.Action("ViewLeadDetails", "AssistantManager"),
+                //url: "/AssistantManager/ViewLeadDetails",
                 data: { BuyerId: buyerid },
                 success: function (response) {
                     $("#modalbodydiv").html(response);

@@ -5,8 +5,6 @@
 
 }
 
-
-
 @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "user" }))
 {
     @Html.AntiForgeryToken()
@@ -17,6 +15,12 @@
                     <h5 class="m-0 font-weight-bold text-primary">User Registration</h5>
                 </div>
                 <div class="card-body">
+                    @if (ViewData.ModelState[""] != null && ViewData.ModelState[""].Errors.Count > 0)
+                    {
+                        <div id="diverrorMessage" class="alert alert-warning" role="alert">
+                            @Html.ValidationSummary(true, "")
+                        </div>
+                    }
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group row">
@@ -43,7 +47,7 @@
                             <div class="form-group row">
                                 @Html.LabelFor(m => m.Gender, new { @class = "col-md-4 control-label", @style = "margin:auto" })
                                 <div class="col-md-8">
-                                    @Html.DropDownListFor(m => m.Gender,new List<SelectListItem> {
+                                    @Html.DropDownListFor(m => m.Gender, new List<SelectListItem> {
                                    new SelectListItem { Text="Male",Value="M" },
                                    new SelectListItem { Text="Female",Value="F" }
                                }, new { @class = "form-control" })
@@ -60,17 +64,17 @@
                             <div class="form-group row">
                                 @Html.LabelFor(m => m.MobileNo, new { @class = "col-md-4 control-label", @style = "margin:auto" })
                                 <div class="col-md-8">
-                                    @Html.TextBoxFor(m => m.MobileNo, "", new { @class = "form-control" })
+                                    @Html.TextBoxFor(m => m.MobileNo, "", new { @class = "form-control", @type = "number" })
                                     @Html.ValidationMessageFor(m => m.MobileNo, "", new { @class = "text-danger" })
                                 </div>
                             </div>
                             <div class="form-group row">
                                 @Html.LabelFor(m => m.MaritalStatus, new { @class = "col-md-4 control-label", @style = "margin:auto" })
                                 <div class="col-md-8">
-                                    @Html.DropDownListFor(m => m.MaritalStatus,new List<SelectListItem> {
+                                    @Html.DropDownListFor(m => m.MaritalStatus, new List<SelectListItem> {
                                    new SelectListItem { Text="Married",Value="M" },
                                    new SelectListItem { Text="Unmarried",Value="U" }
-                               },new {@class="form-control" })
+                               }, new { @class = "form-control" })
                                     @Html.ValidationMessageFor(m => m.MaritalStatus, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -80,7 +84,7 @@
                             <div class="form-group row">
                                 @Html.LabelFor(m => m.AadharCard, new { @class = "col-md-4 control-label", @style = "margin:auto" })
                                 <div class="col-md-8">
-                                    @Html.TextBoxFor(m => m.AadharCard, new { @class = "form-control" })
+                                    @Html.TextBoxFor(m => m.AadharCard, new { @class = "form-control", @type = "number" })
                                     @Html.ValidationMessageFor(m => m.AadharCard, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -88,7 +92,7 @@
                             <div class="form-group row">
                                 @Html.LabelFor(m => m.pincode, new { @class = "col-md-4 control-label", @style = "margin:auto" })
                                 <div class="col-md-8">
-                                    @Html.TextBoxFor(m => m.pincode, new { @class = "form-control" })
+                                    @Html.TextBoxFor(m => m.pincode, new { @class = "form-control", @type = "number" })
                                     @Html.ValidationMessageFor(m => m.pincode, "", new { @class = "text-danger" })
                                 </div>
                             </div>
@@ -96,7 +100,7 @@
                             <div class="form-group row">
                                 @Html.LabelFor(m => m.UserType, new { @class = "col-md-4 control-label", @style = "margin:auto" })
                                 <div class="col-md-8">
-                                    @Html.DropDownListFor(m=>m.UserType,new List<SelectListItem> {
+                                    @Html.DropDownListFor(m => m.UserType, new List<SelectListItem> {
                                    new SelectListItem{Text="Manager",Value="1"},
                                    new SelectListItem{Text="Assistant Manager", Value="2"},
                                    new SelectListItem{Text="Team Member", Value="3"},
@@ -108,7 +112,7 @@
                             <div class="form-group row">
                                 @Html.LabelFor(m => m.Email, new { @class = "col-md-4 control-label", @style = "margin:auto" })
                                 <div class="col-md-8">
-                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control" })
+                                    @Html.TextBoxFor(m => m.Email, new { @class = "form-control", @type = "email" })
                                     @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
 
                                 </div>
@@ -145,11 +149,6 @@
 
 }
 
-
-
-
-
-
 <link href="~/Content/sweetalert/sweet-alert.css" rel="stylesheet" />
 <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 @if (ViewBag.Message != null)
@@ -163,10 +162,19 @@
     </script>
 }
 
-<link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />
+@*<link href="~/Content/bootstrap-datetimepicker.min.css" rel="stylesheet" />*@
+<link href="~/Content/bootstrap-datepicker.min.css" rel="stylesheet" />
+
 <style type="text/css">
     .swal-footer {
         text-align: center;
+    }
+</style>
+<style>
+    .validation-summary-errors ul, li {
+        list-style: none;
+        margin: 0;
+        padding-left: 0;
     }
 </style>
 <style>
@@ -182,10 +190,18 @@
 </style>
 <link href="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/css/bootstrap-multiselect.css" rel="stylesheet" type="text/css" />
 @section Scripts {
-    
+
     <script src="http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/js/bootstrap-multiselect.js" type="text/javascript"></script>
     <script src="~/Scripts/moment.min.js"></script>
-    <script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>
+    @*<script src="~/Scripts/bootstrap-datetimepicker.min.js"></script>*@
+    <script src="~/Scripts/bootstrap-datepicker.min.js"></script>
+
+
+    <script>
+        $("#diverrorMessage").fadeTo(5000, 500).slideUp(500, function () {
+            $("#diverrorMessage").slideUp(500);
+        });
+    </script>
 
     <script type="text/javascript">
         $(function () {
@@ -201,16 +217,21 @@
                     $('#divMember').show();
                 }
                 else {
-                     $('#divMember').hide();
+                    $('#divMember').hide();
                 }
             });
         });
 
-        $(function () {
-            $('#DateOfBirth').datetimepicker({
-                format: 'DD/MM/YYYY',
-                ignoreReadonly: true
-            });
+        $('#DateOfBirth').datepicker({
+            ignoreReadonly: true,
+        }).on('changeDate', function (e) {
+            $(this).datepicker('hide');
         });
+        //$(function () {
+        //    $('#DateOfBirth').datetimepicker({
+        //        format: 'DD/MM/YYYY',
+        //        ignoreReadonly: true
+        //    });
+        //});
     </script>
 }

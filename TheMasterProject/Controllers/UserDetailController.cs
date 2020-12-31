@@ -22,6 +22,9 @@ namespace TheMasterProject.Controllers
         public ActionResult Index()
         {
             var list = db.BuyerDetails.Include("ManagerDetail").ToList();
+            ViewBag.TotalLeads = list.Count();
+            ViewBag.DealerLeads = list.Where(x => x.LeadCreatedBy != null).Count();
+            ViewBag.CompletedLeads = list.Where(x => x.currenStatus == Convert.ToString(TheMasterProject.Enum.LeadStatus.Completed)).Count();
             return View(list);
         }
 
@@ -54,7 +57,7 @@ namespace TheMasterProject.Controllers
                 if (currentBuyerDetail == null)
                     return HttpNotFound();
                 currentBuyerDetail.ManagerAssigned = bd.ManagerAssigned;
-
+                
                 var currentBuyerRelation = db.BuyerRelation.FirstOrDefault(b => b.BuyerId == bd.BuyerId);
                 if (currentBuyerRelation == null)
                 {
@@ -84,9 +87,9 @@ namespace TheMasterProject.Controllers
         public ActionResult ViewLeadDetails(int BuyerId)
         {
             var list = db.BuyerDetails.Find(BuyerId);
-            var userlist = db.BuyerRelation.Include("MemberDetail").Include("ProjectLeadDetail").Where(x => x.BuyerId == BuyerId).OrderByDescending(x => x.UpdatedOn).FirstOrDefault();
+            var userlist = db.BuyerRelation.Include("ManagerDetail").Include("AMDetail").Include("MemberDetail").Where(x => x.BuyerId == BuyerId).OrderByDescending(x => x.UpdatedOn).FirstOrDefault();
 
-            ViewBag.leadmember = userlist;
+            ViewBag.leadDetails = userlist;
             return PartialView("DetailsPartial", list);
         }
 
@@ -110,7 +113,7 @@ namespace TheMasterProject.Controllers
                 {
                     string filename = FileUpload.FileName;
 
-                    if (filename.EndsWith(".xls"))
+                    if (filename.EndsWith(".xls") || filename.EndsWith(".xlsx"))
                     {
                         string targetpath = Server.MapPath("~/Content/Doc");
                         FileUpload.SaveAs(targetpath + filename);
@@ -128,13 +131,13 @@ namespace TheMasterProject.Controllers
                                 int resullt = PostExcelData(a.BuyerName, a.MobileNo);
                                 if (resullt <= 0)
                                 {
-                                    data = "Hello User, Found some duplicate values! Only unique employee number has inserted and duplicate values(s) are not inserted";
+                                    data = "Hello User, Found some duplicate values! Only unique employee were inserted";
                                     ViewBag.Message = data;
                                     continue;
                                 }
                                 else
                                 {
-                                    data = "Successful upload records";
+                                    data = "Successful uploaded records";
                                     ViewBag.Message = data;
                                 }
                             }
@@ -185,16 +188,23 @@ namespace TheMasterProject.Controllers
         public int PostExcelData(string BuyerName, string MobileNo)
         {
             Buyer_Detail bd = new Buyer_Detail();
+            int val = 0;
             var alreadyBuyer = db.BuyerDetails.Where(x => x.MobileNo == MobileNo).FirstOrDefault();
             if(alreadyBuyer == null)
             {
                 bd.BuyerName = BuyerName;
+                bd.LeadIncomingFrom = TheMasterProject.Enum.LeadComingFrom.Excel.ToString();
                 bd.MobileNo = MobileNo;
                 db.BuyerDetails.Add(bd);
+                val = 1;
+            }
+            else
+            {
+                val = -1;
             }
            
             db.SaveChanges();
-            return 1;
+            return val;
         }
 
         public ActionResult DealerDetail()

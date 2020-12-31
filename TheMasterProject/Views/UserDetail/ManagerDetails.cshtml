@@ -102,12 +102,13 @@
                 },
             });
         });
-        
+
         var AssignAssistantManager = (userId) => {
 
             $.ajax({
                 type: "GET",
-                url: "/UserDetail/AssignAssistantManager",
+                url: @Url.Action("AssignAssistantManager", "UserDetail"),
+                //url: "/UserDetail/AssignAssistantManager",
                 data: { userId: userId },
                 success: function (response) {
 
@@ -116,7 +117,7 @@
                     $("#myModal").modal("show");
                     $('#modalDialog').addClass('modal-dialog modal-lg');
 
-                    
+
                 },
             });
         };

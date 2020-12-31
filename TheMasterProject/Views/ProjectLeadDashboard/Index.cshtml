@@ -216,7 +216,8 @@
 
             $.ajax({
                 type: "GET",
-                url: "/ProjectLeadDashboard/ViewLeadDetails",
+                url: @Url.Action("ViewLeadDetails", "ProjectLeadDashboard"),
+                //url: "/ProjectLeadDashboard/ViewLeadDetails",
                 data: { BuyerId: buyerid },
                 success: function (response) {
                     $("#modalbodydiv").html(response);

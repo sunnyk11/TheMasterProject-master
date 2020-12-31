@@ -24,9 +24,10 @@ namespace TheMasterProject.Controllers
         public ActionResult Index()
         {
             var userid = GetUserId();
-            var leadDeatils = db.BuyerRelation.Include("BuyerDetail").Where(x => x.MemberId == userid).ToList();
-
-            return View(leadDeatils);
+            var leadDetails = db.BuyerRelation.Include("BuyerDetail").Where(x => x.MemberId == userid).ToList();
+            ViewBag.TotalLeads = leadDetails.Count();
+            ViewBag.CompletedLeads = leadDetails.Where(x => x.BuyerDetail.currenStatus == Convert.ToString(TheMasterProject.Enum.LeadStatus.Completed)).Count();
+            return View(leadDetails);
         }
 
         public ActionResult UpdateDetails(int BuyerId)
@@ -91,8 +92,6 @@ namespace TheMasterProject.Controllers
                 Officepincode = buyerDetail.Officepincode,
                 LoanAmount = buyerDetail.LoanAmount,
                 Title = buyerDetail.Gender,
-                
-                
             };
             if(AppointmentDetails != null)
             {
@@ -201,7 +200,7 @@ namespace TheMasterProject.Controllers
                     BuyerDetails.Officepincode = bv.Officepincode;
                     BuyerDetails.LoanAmount = bv.LoanAmount;
                     BuyerDetails.Gender = bv.Title;
-
+                    BuyerDetails.currenStatus = bv.currenStatus;
                     // db.BuyerDetails.Attach(BuyerDetails);
                     Comments newcomment = new Comments();
                     var lastComment = db.Comments.Where(x => x.BuyerId == bv.BuyerId).OrderByDescending(x => x.CommentId).Take(1).Select(x => x.CommentDetails).FirstOrDefault();
@@ -599,6 +598,7 @@ namespace TheMasterProject.Controllers
             var comment = db.Comments.Where(x => x.BuyerId == buyerId).ToList();
             return View("openComment", comment);
         }
+
 
         public ActionResult ViewBuyerForAppointmentBooking()
         {

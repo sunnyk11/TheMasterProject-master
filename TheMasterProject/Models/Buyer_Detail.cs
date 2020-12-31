@@ -149,7 +149,7 @@ namespace TheMasterProject.Models
         public int LeadPosition { get; set; } = 0;
         public int TransferRequestStatus { get; set; } = 0;
         public ApplicationUser ManagerDetail { get; set; }
-
+        public string LeadIncomingFrom { get; set; }
         public string LeadCreatedBy { get; set; }
 
         [NotMapped]

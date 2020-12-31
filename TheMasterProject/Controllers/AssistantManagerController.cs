@@ -22,6 +22,8 @@ namespace TheMasterProject.Controllers
         {
             var userId = GetUserId();
             var leadList = db.BuyerRelation.Include("BuyerDetail").Include("MemberDetail").Where(m => m.AssistantManagerId == userId).ToList();
+            ViewBag.TotalLeads = leadList.Count();
+            ViewBag.CompletedLeads = leadList.Where(x => x.BuyerDetail.currenStatus == Convert.ToString(TheMasterProject.Enum.LeadStatus.Completed)).Count();
 
             return View(leadList);
         }
